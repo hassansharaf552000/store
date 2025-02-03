@@ -1,0 +1,46 @@
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-panel {
+  display: flex;
+  flex: 1;
+  margin-top: 70px; // Height of navbar
+  position: relative;
+  
+  app-sidebar {
+    width: 260px;
+    position: fixed;
+    left: 0;
+    height: calc(100vh - 70px); // Subtract navbar height
+  }
+  
+  .content {
+    margin-left: 260px; // Width of sidebar
+    flex: 1;
+    padding: 20px;
+    background: #f4f6f9;
+    min-height: calc(100vh - 70px); // Subtract navbar height
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 991px) {
+  .main-panel {
+    .content {
+      margin-left: 0;
+    }
+    
+    app-sidebar {
+      transform: translateX(-260px);
+      transition: transform 0.3s ease;
+      
+      &.show {
+        transform: translateX(0);
+      }
+    }
+  }
+}

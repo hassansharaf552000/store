@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { PurchaseRoutingModule } from './purchase-routing.module';
 import { PurchaseComponent } from './purchase.component';
+import { PurchaseRequestComponent } from './purchase-request/purchase-request.component';
 
 
 @NgModule({
   declarations: [
-    PurchaseComponent
+    PurchaseComponent,
+    PurchaseRequestComponent
   ],
   imports: [
     CommonModule,

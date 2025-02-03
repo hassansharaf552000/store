@@ -1,0 +1,244 @@
+.sidebar-wrapper {
+  width: 200px;
+  height: 100vh;
+  background: #1bad90;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 70px;
+  color: white;
+  z-index: 1;
+  
+  .logo {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    
+    img {
+      width: 35px;
+      margin-right: 10px;
+    }
+    
+    .simple-text {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .nav {
+    margin-top: 20px;
+    
+    .nav-item {
+      margin: 5px 15px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      
+      .nav-link {
+        padding: 12px 15px;
+        color: rgba(255,255,255,0.8);
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        
+        i {
+          font-size: 1.25rem;
+          margin-right: 15px;
+          transition: all 0.3s ease;
+        }
+        
+        p {
+          margin: 0;
+          font-size: 0.9rem;
+          font-weight: 400;
+          line-height: 1.5;
+        }
+        
+        &:hover {
+          background: rgba(255,255,255,0.1);
+          color: white;
+          border-radius: 4px;
+          
+          i {
+            transform: translateX(5px);
+          }
+        }
+      }
+      
+      &.active {
+        background: rgba(255,255,255,0.1);
+        
+        .nav-link {
+          color: white;
+          
+          i {
+            color: #066451;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Add styles for the search form in mobile view
+.navbar-form {
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  
+  .input-group {
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 5px;
+    
+    input {
+      background: transparent;
+      border: none;
+      color: white;
+      
+      &::placeholder {
+        color: rgba(255,255,255,0.5);
+      }
+    }
+    
+    button {
+      background: transparent;
+      border: none;
+      color: white;
+    }
+  }
+}
+
+.sidebar-container {
+  height: 100%;
+  
+  .logo {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    
+    .simple-text {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: white;
+      font-size: 1.25rem;
+      text-decoration: none;
+      
+      .pi {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .nav {
+    padding: 1rem 0;
+    
+    .nav-item {
+      margin: 0.25rem 1rem;
+      
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        color: rgba(255,255,255,0.8);
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        
+        .pi {
+          font-size: 1.1rem;
+          width: 1.5rem;
+        }
+        
+        span {
+          font-size: 0.9rem;
+          font-weight: 400;
+        }
+        
+        &:hover {
+          background: rgba(255,255,255,0.1);
+          color: white;
+          transform: translateX(5px);
+        }
+      }
+      
+      &.active .nav-link {
+        background: rgba(255,255,255,0.15);
+        color: white;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .mobile-search {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    
+    .p-input-icon-right {
+      width: 100%;
+      
+      input {
+        width: 100%;
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: white;
+        border-radius: 20px;
+        
+        &::placeholder {
+          color: rgba(255,255,255,0.5);
+        }
+      }
+      
+      .pi {
+        color: rgba(255,255,255,0.5);
+      }
+    }
+  }
+
+  .mobile-bottom-menu {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    
+    .mobile-actions {
+      display: flex;
+      justify-content: space-around;
+      
+      .action-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: rgba(255,255,255,0.8);
+        gap: 0.5rem;
+        text-decoration: none;
+        
+        .pi {
+          font-size: 1.25rem;
+        }
+        
+        span {
+          font-size: 0.75rem;
+        }
+        
+        .notification-badge {
+          position: relative;
+          
+          .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.7rem;
+          }
+        }
+      }
+    }
+  }
+}
