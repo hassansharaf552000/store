@@ -1,0 +1,50 @@
+<div class="sidebar-container">
+    <div class="logo">
+        <a class="simple-text">
+            <i class="pi pi-shopping-bag"></i>
+            <span>Street Wear</span>
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <!-- Mobile Search -->
+        <div *ngIf="isMobileMenu()" class="mobile-search">
+            <form class="search-form">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input type="text" pInputText placeholder="Search..."/>
+                </span>
+            </form>
+        </div>
+
+        <!-- Navigation Menu -->
+        <ul class="nav">
+            <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="nav-item">
+                <a class="nav-link" [routerLink]="[menuItem.path]">
+                    <i class="pi" [ngClass]="'pi-' + convertIcon(menuItem.icon)"></i>
+                    <span>{{menuItem.title}}</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Mobile Bottom Menu -->
+        <div *ngIf="isMobileMenu()" class="mobile-bottom-menu">
+            <div class="mobile-actions">
+                <a class="action-item">
+                    <i class="pi pi-chart-bar"></i>
+                    <span>Stats</span>
+                </a>
+                <a class="action-item">
+                    <div class="notification-badge">
+                        <i class="pi pi-bell"></i>
+                        <span class="badge">5</span>
+                    </div>
+                    <span>Alerts</span>
+                </a>
+                <a class="action-item">
+                    <i class="pi pi-user"></i>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

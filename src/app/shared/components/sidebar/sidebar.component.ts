@@ -7,18 +7,17 @@ interface RouteInfo {
   class: string;
 }
 export const ROUTES: RouteInfo[] = [
-  // Business Modules
-  { path: '/purchase', title: 'Purchase', icon: 'nc-cart-simple', class: '' },
-  { path: '/production', title: 'Production', icon: 'nc-cog', class: '' },
-  { path: '/warehouse', title: 'Warehouse', icon: 'nc-box', class: '' },
-  { path: '/accounting', title: 'Accounting', icon: 'nc-credit-card', class: '' },
-  { path: '/orders', title: 'Orders', icon: 'nc-box', class: '' },
-  { path: '/reporting', title: 'Reporting', icon: 'nc-chart-bar-32', class: '' },
-  // User Profile and Settings
-  { path: '/profile', title: 'Profile', icon: 'nc-single-02', class: '' },
-  { path: '/settings', title: 'Settings', icon: 'nc-settings', class: '' },
-
+  { path: '/dashboard', title: 'Dashboard', icon: 'home', class: '' }, // Changed to 'home' icon
+  { path: '/purchase', title: 'Purchase', icon: 'shopping-cart', class: '' },
+  { path: '/production', title: 'Production', icon: 'cog', class: '' },
+  { path: '/warehouse', title: 'Warehouse', icon: 'box', class: '' },
+  { path: '/accounting', title: 'Accounting', icon: 'wallet', class: '' },
+  { path: '/orders', title: 'Orders', icon: 'shopping-bag', class: '' },
+  { path: '/reporting', title: 'Reporting', icon: 'chart-bar', class: '' },
+  { path: '/user-profile', title: 'Profile', icon: 'user', class: '' },  // Changed path
+  { path: '/user-settings', title: 'Settings', icon: 'cog', class: '' }  // Changed path
 ];
+
 @Component({
   selector: 'app-sidebar',
   standalone: false,
@@ -32,4 +31,25 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
+  isMobileMenu() {
+    if (window.outerWidth > 991) {
+        return false;
+    }
+    return true;
+};
+
+  convertIcon(icon: string): string {
+    // Convert material icons to PrimeNG equivalent
+    const iconMap: { [key: string]: string } = {
+      'nc-cart-simple': 'shopping-cart',
+      'nc-cog': 'cog',
+      'nc-box': 'box',
+      'nc-credit-card': 'wallet',
+      'nc-chart-bar-32': 'chart-bar',
+      'nc-single-02': 'user',
+      'grid': 'home'  // Added mapping for dashboard icon
+    };
+    return iconMap[icon] || icon;
+  }
 }
+
