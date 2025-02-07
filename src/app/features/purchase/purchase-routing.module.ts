@@ -4,8 +4,11 @@ import { PurchaseComponent } from './purchase.component';
 import { PurchaseOrderComponent } from './components/purchase-order/purchase-order.component';
 
 const routes: Routes = [
-  { path: '', component: PurchaseOrderComponent },
-  {path:'puchase-order',component:PurchaseOrderComponent}
+  { path: '', component: PurchaseComponent },
+  {
+    path: 'purchase-order',
+    component: PurchaseOrderComponent
+  },
 ];
 
 @NgModule({

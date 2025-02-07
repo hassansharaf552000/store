@@ -1,5 +1,8 @@
 <div class="card">
-    <h2>Purchase Order Form</h2>
+    <div class="header-section">
+        <button pButton type="button" icon="pi pi-arrow-left" class="p-button-text back-button" (click)="goBack()"></button>
+        <h2>Purchase Order Form</h2>
+    </div>
     <form [formGroup]="purchaseOrderForm" (ngSubmit)="onSubmit()">
   
       <div class="p-field">

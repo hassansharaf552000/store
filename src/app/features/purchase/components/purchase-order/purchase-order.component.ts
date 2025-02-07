@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { PurchaseOrderService } from '../../services/purchase-order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-order',
-standalone: false,
-  
+  standalone: false,
   templateUrl: './purchase-order.component.html',
   styleUrls: ['./purchase-order.component.scss']
 })
@@ -18,7 +18,8 @@ export class PurchaseOrderComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
-    private purchaseOrderService: PurchaseOrderService
+    private purchaseOrderService: PurchaseOrderService,
+    private router: Router
   ) {
     this.purchaseOrderForm = this.fb.group({
       supplier: [null, Validators.required],
@@ -86,6 +87,10 @@ export class PurchaseOrderComponent implements OnInit {
     } else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
     }
+  }
+
+  goBack() {
+    this.router.navigate(['/purchase']);
   }
 }
 
