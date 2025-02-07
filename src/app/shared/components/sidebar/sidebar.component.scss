@@ -1,53 +1,53 @@
+@use '../../../shared/styles/variables' as *;
+
 .sidebar-wrapper {
-  width: 200px;
+  width: var(--sidebar-width);
   height: 100vh;
-  background: #1bad90;
+  background: var(--primary-color);
   position: fixed;
   top: 0;
   left: 0;
-  padding-top: 70px;
+  padding-top: var(--navbar-height);
   color: white;
   z-index: 1;
   
   .logo {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: var(--spacing-md);
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.1);
     
     img {
       width: 35px;
-      margin-right: 10px;
+      margin-right: var(--spacing-sm);
     }
     
     .simple-text {
+      @include flex-center;
       color: white;
       text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-medium);
     }
   }
 
   .nav {
-    margin-top: 20px;
+    margin-top: var(--spacing-lg);
     
     .nav-item {
-      margin: 5px 15px;
-      border-radius: 4px;
-      transition: all 0.3s ease;
+      margin: var(--spacing-xs) var(--spacing-md);
+      border-radius: var(--border-radius-sm);
+      @include transition-base;
       
       .nav-link {
-        padding: 12px 15px;
+        padding: var(--spacing-sm) var(--spacing-md);
         color: rgba(255,255,255,0.8);
-        display: flex;
-        align-items: center;
+        @include flex-center;
         text-decoration: none;
-        transition: all 0.3s ease;
+        @include transition-base;
         
         i {
-          font-size: 1.25rem;
-          margin-right: 15px;
-          transition: all 0.3s ease;
+          font-size: var(--font-size-lg);
+          margin-right: var(--spacing-md);
+          @include transition-base;
         }
         
         p {
@@ -60,7 +60,7 @@
         &:hover {
           background: rgba(255,255,255,0.1);
           color: white;
-          border-radius: 4px;
+          border-radius: var(--border-radius-sm);
           
           i {
             transform: translateX(5px);
@@ -75,7 +75,7 @@
           color: white;
           
           i {
-            color: #066451;
+            color: var(--primary-dark);
           }
         }
       }

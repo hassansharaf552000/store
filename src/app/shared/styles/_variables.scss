@@ -1,0 +1,33 @@
+// Breakpoints
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;
+
+// Mixins - to be used by components
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin transition-base {
+  transition: all 0.3s ease;
+}
+
+@mixin hover-lift {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
