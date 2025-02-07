@@ -1,0 +1,82 @@
+<div class="card">
+    <h2>Purchase Order Form</h2>
+    <form [formGroup]="purchaseOrderForm" (ngSubmit)="onSubmit()">
+  
+      <div class="p-field">
+        <label for="supplier">Supplier</label>
+        <input pInputText id="supplier" type="text" formControlName="supplier" placeholder="Enter Supplier Name"/>
+        <small *ngIf="purchaseOrderForm.get('supplier')?.invalid && purchaseOrderForm.get('supplier')?.touched" class="p-error">
+          Supplier is required
+        </small>
+      </div>
+  
+      <div class="p-field p-mb-3">
+        <label for="orderDate" class="p-d-block">Order Date</label>
+        <p-calendar id="orderDate" 
+                   formControlName="orderDate" 
+                   dateFormat="yy-mm-dd"
+                   [showIcon]="true"
+                   [appendTo]="'body'"
+                   [showOnFocus]="false"
+                   styleClass="p-mb-2 p-d-block"></p-calendar>
+        <small *ngIf="purchaseOrderForm.get('orderDate')?.invalid && purchaseOrderForm.get('orderDate')?.touched" class="p-error">
+          Order date is required
+        </small>
+      </div>
+  
+      <h3>Items</h3>
+      <p-table [value]="items.controls">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Item Name</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template let-item let-i="rowIndex" pTemplate="body">
+          <tr [formGroup]="item">
+            <td style="min-width: 200px;">
+              <input pInputText type="text" formControlName="itemName" placeholder="Enter Item Name"/>
+              <small class="p-error" *ngIf="item.get('itemName')?.invalid && item.get('itemName')?.touched">
+                Required
+              </small>
+            </td>
+            <td style="min-width: 100px;">
+              <input pInputText type="text" formControlName="unit" placeholder="e.g. KG, PCS"/>
+              <small class="p-error" *ngIf="item.get('unit')?.invalid && item.get('unit')?.touched">
+                Required
+              </small>
+            </td>
+            <td style="min-width: 100px;">
+              <input pInputNumber type="number" formControlName="quantity" min="1" placeholder="Min: 1"/>
+              <small class="p-error" *ngIf="item.get('quantity')?.invalid && item.get('quantity')?.touched">
+                Must be > 0
+              </small>
+            </td>
+            <td style="min-width: 120px;">
+              <input pInputNumber type="number" formControlName="unitPrice" min="1" placeholder="Min: 1"/>
+              <small class="p-error" *ngIf="item.get('unitPrice')?.invalid && item.get('unitPrice')?.touched">
+                Must be > 0
+              </small>
+            </td>
+            <td>{{ calculateTotalPrice(i) | currency:'EGP' }}</td>
+            <td>
+              <button pButton type="button" icon="pi pi-trash" class="p-button-danger p-button-rounded-sm" (click)="removeItem(i)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <button pButton type="button" label="Add Item" icon="pi pi-plus" class="p-mt-2" (click)="addItem()"></button>
+  
+      <button pButton 
+              type="submit" 
+              label="Submit Purchase Order" 
+              class="p-mt-3" 
+              [disabled]="!isFormValid()"></button>
+    </form>
+  </div>
+  
+  <p-toast></p-toast>

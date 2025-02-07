@@ -67,15 +67,15 @@
         }
         
         &:hover {
-          background: rgba(255,255,255,0.1);
-          color: white;
+          background: var(--primary-light);
+          color: var(--secondary-color);
         }
       }
       
       &.active {
         .nav-link {
-          background: rgba(255,255,255,0.15);
-          color: white;
+          background: var(--secondary-color);
+          color: var(--light-color);
         }
       }
     }
@@ -88,7 +88,7 @@
   border-bottom: 1px solid rgba(255,255,255,0.1);
   
   .input-group {
-    background: rgba(255,255,255,0.1);
+    background: var(--primary-light);
     border-radius: 20px;
     padding: 5px;
     
