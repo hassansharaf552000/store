@@ -1,25 +1,27 @@
+@import "primeicons/primeicons.css";
 // Variables
 :root {
   // Colors
-  --primary-color: #1bad90;
-  --primary-dark: #066451;
-  --primary-light: #3cc3a9;
-  --secondary-color: #2c3e50;
-  --success-color: #2ecc71;
-  --danger-color: #e74c3c;
-  --warning-color: #f1c40f;
-  --info-color: #3498db;
-  --light-color: #f8f9fa;
-  --dark-color: #343a40;
-  --gray-100: #f4f6f9;
-  --gray-200: #e9ecef;
-  --gray-300: #dee2e6;
-  --gray-400: #ced4da;
-  --gray-500: #adb5bd;
-  --gray-600: #6c757d;
-  --gray-700: #495057;
-  --gray-800: #343a40;
-  --gray-900: #212529;
+  --primary-color: #2C3E50;
+  --primary-dark: #1a252f;
+  --primary-light: #34495E;
+  --secondary-color: #2f798b; // Changed from #E67E22 to a deeper orange
+  --accent-color: #2b9e85;    // Previous secondary color now becomes accent
+  --success-color: #27AE60;
+  --danger-color: #C0392B;
+  --warning-color: #F39C12;
+  --info-color: #3498DB;
+  --light-color: #F5F6FA;
+  --dark-color: #2C3E50;
+  --gray-100: #ECF0F1;
+  --gray-200: #BDC3C7;
+  --gray-300: #95A5A6;
+  --gray-400: #7F8C8D;
+  --gray-500: #6C757D;
+  --gray-600: #566573;
+  --gray-700: #34495E;
+  --gray-800: #2C3E50;
+  --gray-900: #1a252f;
 
   // Typography
   --font-primary: 'Roboto', sans-serif;
@@ -54,7 +56,7 @@
 
   // Layout
   --navbar-height: 70px;
-  --sidebar-width: 200px;
+  --sidebar-width: 170px;
   --container-padding: 1rem;
 }
 
@@ -117,6 +119,32 @@ body {
 .p-0 { padding: 0 !important; }
 .mx-auto { margin-left: auto !important; margin-right: auto !important; }
 
+// Additional utility classes for alignment and centering
+.content-center {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.flex-center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-center-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-container {
+  padding-left: calc(var(--sidebar-width) + var(--container-padding));
+  padding-top: calc(var(--navbar-height) + var(--container-padding));
+  min-height: 100vh;
+}
+
 // Button styles
 .btn {
   padding: var(--spacing-sm) var(--spacing-md);
@@ -126,10 +154,10 @@ body {
   @include transition-base;
   
   &-primary {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
     &:hover {
-      background-color: var(--primary-dark);
+      background-color: var(--accent-color);
     }
   }
 }
