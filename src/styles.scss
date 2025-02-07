@@ -54,7 +54,7 @@
 
   // Layout
   --navbar-height: 70px;
-  --sidebar-width: 200px;
+  --sidebar-width: 170px;
   --container-padding: 1rem;
 }
 
@@ -116,6 +116,32 @@ body {
 .m-0 { margin: 0 !important; }
 .p-0 { padding: 0 !important; }
 .mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+// Additional utility classes for alignment and centering
+.content-center {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.flex-center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-center-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-container {
+  padding-left: calc(var(--sidebar-width) + var(--container-padding));
+  padding-top: calc(var(--navbar-height) + var(--container-padding));
+  min-height: 100vh;
+}
 
 // Button styles
 .btn {
