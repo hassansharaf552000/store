@@ -1,1 +1,27 @@
-<p>reporting works!</p>
+<div class="reporting-dashboard">
+  <!-- <div class="dashboard-header">
+    <h1>Reporting Dashboard</h1>
+  </div> -->
+  
+  <div class="dashboard-grid">
+    <div class="dashboard-card" (click)="navigateToPurchaseReports()">
+      <div class="card-content">
+        <i class="pi pi-chart-bar"></i>
+        <h3>Purchase Reports</h3>
+        <p>View detailed analytics and statistics for purchase orders</p>
+      </div>
+      <div class="card-footer">
+        <span>View Reports <i class="pi pi-arrow-right"></i></span>
+      </div>
+    </div>
+    
+    <!-- Placeholder for future report types -->
+    <div class="dashboard-card disabled">
+      <div class="card-content">
+        <i class="pi pi-chart-line"></i>
+        <h3>Sales Reports</h3>
+        <p>Coming soon...</p>
+      </div>
+    </div>
+  </div>
+</div>
