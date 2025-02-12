@@ -6,7 +6,7 @@
   background: var(--primary-color);
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0; // Change from left: 0
   padding-top: 50px;
   color: white;
   z-index: 1;
@@ -17,7 +17,7 @@
     
     img {
       width: 35px;
-      margin-right: var(--spacing-sm);
+      margin-left: var(--spacing-sm); // Change from margin-right
     }
     
     .simple-text {
@@ -47,19 +47,22 @@
       .nav-link {
         display: flex;
         align-items: center;
-        justify-content: left;
-        direction: ltr;
+        justify-content: right; // Change from left
+        direction: rtl; // Change from ltr
         padding: 0.75rem 1rem;
         width: 100%;
         color: rgba(255,255,255,0.8);
         text-decoration: none;
         border-radius: var(--border-radius-sm);
         transition: all 0.2s ease;
+        text-align: right;
+        padding-right: 1rem;
         
         i {
           width: 24px;
           text-align: center;
-          margin-right: 0.75rem;
+          margin-left: 0.75rem; // Change from margin-right
+          margin-right: 0;
         }
         
         span {
@@ -120,7 +123,7 @@
   flex-direction: column;
   z-index: 1;
   top: 0;
-  left: 0;
+  right: 0; // Change from left: 0
 
   .logo {
     height: 60px;
@@ -161,10 +164,13 @@
         text-decoration: none;
         border-radius: var(--border-radius-sm);
         transition: all 0.2s ease;
+        text-align: right;
+        padding-right: 1rem;
         
         i {
           width: 1.5rem;
-          margin-right: 0.75rem;
+          margin-left: 0.75rem; // Change from margin-right
+          margin-right: 0;
         }
         
         &:hover {
@@ -205,6 +211,19 @@
       .pi {
         color: rgba(255,255,255,0.5);
         right: 1rem;
+      }
+    }
+    
+    .p-input-icon-left {
+      input {
+        padding-right: 1rem;
+        padding-left: 2.5rem;
+        text-align: right;
+      }
+      
+      i {
+        left: 0.75rem;
+        right: auto;
       }
     }
   }
@@ -269,7 +288,7 @@
 
 @media (max-width: 768px) {
   .sidebar-container {
-    transform: translateX(-100%);
+    transform: translateX(100%); // Change from translateX(-100%)
     transition: transform 0.3s ease;
     
     &.mobile-open {
@@ -280,7 +299,7 @@
 
 // Adjust main content area to account for sidebar
 .main-content {
-  margin-left: var(--sidebar-width);
+  margin-right: var(--sidebar-width); // Change from margin-left
   padding: var(--spacing-lg);
   min-height: calc(100vh - var(--navbar-height));
 }
@@ -288,7 +307,7 @@
 // Add responsive adjustments
 @media (max-width: 768px) {
   .main-content {
-    margin-left: 0;
+    margin-right: 0; // Change from margin-left
     padding: var(--spacing-md);
   }
 }

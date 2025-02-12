@@ -28,6 +28,7 @@ export class PurchaseOrderComponent implements OnInit {
     });
 
     this.addItem();
+    document.dir = 'rtl'; // Set RTL direction
   }
 
   ngOnInit() {
@@ -55,8 +56,8 @@ export class PurchaseOrderComponent implements OnInit {
     } else {
       this.messageService.add({ 
         severity: 'warn', 
-        summary: 'Warning', 
-        detail: 'At least one item is required' 
+        summary: 'تحذير', 
+        detail: 'مطلوب عنصر واحد على الأقل' 
       });
     }
   }
@@ -82,10 +83,10 @@ export class PurchaseOrderComponent implements OnInit {
 
   onSubmit() {
     if (this.purchaseOrderForm.valid) {
-      console.log('Purchase Order Submitted:', this.purchaseOrderForm.value);
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Purchase Order Submitted' });
+      console.log('تم تقديم أمر الشراء:', this.purchaseOrderForm.value);
+      this.messageService.add({ severity: 'success', summary: 'نجاح', detail: 'تم تقديم أمر الشراء' });
     } else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
+      this.messageService.add({ severity: 'error', summary: 'خطأ', detail: 'يرجى ملء جميع الحقول المطلوبة' });
     }
   }
 

@@ -51,6 +51,8 @@
   // Shadows
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
 
@@ -60,12 +62,7 @@
   --container-padding: 1rem;
 }
 
-// Mixins
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 @mixin flex-between {
   display: flex;
@@ -97,6 +94,8 @@ body {
   line-height: 1.5;
   color: var(--gray-800);
   background-color: var(--gray-100);
+  direction: rtl; // Add RTL direction
+  text-align: right; // Add right text alignment
 }
 
 // Utility Classes
@@ -117,7 +116,10 @@ body {
 // Spacing utilities
 .m-0 { margin: 0 !important; }
 .p-0 { padding: 0 !important; }
-.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+.mx-auto { 
+  margin-right: auto !important; 
+  margin-left: auto !important; 
+}
 
 // Additional utility classes for alignment and centering
 .content-center {
@@ -140,10 +142,15 @@ body {
 }
 
 .page-container {
-  padding-left: calc(var(--sidebar-width) + var(--container-padding));
+  padding-right: calc(var(--sidebar-width) + var(--container-padding)); // Change from padding-left
+  padding-left: var(--container-padding); // Add padding-left
   padding-top: calc(var(--navbar-height) + var(--container-padding));
   min-height: 100vh;
 }
+
+// Add RTL specific utility classes
+.mr-auto { margin-left: auto !important; margin-right: 0 !important; }
+.ml-auto { margin-right: auto !important; margin-left: 0 !important; }
 
 // Button styles
 .btn {

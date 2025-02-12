@@ -577,6 +577,58 @@
         }
       }
     }
+
+    &[dir="rtl"] {
+      text-align: right;
+      
+      .p-button {
+        .p-button-icon-left {
+          margin-left: 0.5rem;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  
+  // RTL specific table styles
+  .rtl-table {
+    ::ng-deep {
+      .p-datatable {
+        .p-datatable-thead > tr > th {
+          text-align: right;
+        }
+  
+        .p-datatable-tbody > tr > td {
+          text-align: right;
+        }
+  
+        .p-sortable-column-icon {
+          margin-right: 0.5rem;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+  
+  // RTL modifications for dropdown and calendar
+  ::ng-deep {
+    [dir="rtl"] {
+      .p-dropdown {
+        .p-dropdown-trigger {
+          border-radius: var(--border-radius) 0 0 var(--border-radius);
+          border-right: 1px solid var(--gray-300);
+          border-left: none;
+        }
+      }
+  
+      .p-calendar {
+        .p-calendar-trigger {
+          border-radius: var(--border-radius) 0 0 var(--border-radius);
+          border-right: 1px solid var(--gray-300);
+          border-left: none;
+        }
+      }
+    }
   }
   
   button {

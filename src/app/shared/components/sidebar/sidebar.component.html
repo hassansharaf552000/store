@@ -1,17 +1,17 @@
-<div class="sidebar-container">
+<div class="sidebar-container" dir="rtl">
     <div class="logo">
         <a class="simple-text">
+            <span>متجر الملابس</span>
             <i class="pi pi-shopping-bag"></i>
-            <span>Street Wear</span>
         </a>
     </div>
     <div class="sidebar-wrapper">
         <!-- Mobile Search -->
         <div *ngIf="isMobileMenu()" class="mobile-search">
             <form class="search-form">
-                <span class="p-input-icon-right">
+                <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input type="text" pInputText placeholder="Search..."/>
+                    <input type="text" pInputText placeholder="بحث..."/>
                 </span>
             </form>
         </div>
@@ -22,8 +22,8 @@
                 *ngFor="let menuItem of menuItems" 
                 class="nav-item">
                 <a class="nav-link" [routerLink]="[menuItem.path]">
+                    <span>{{menuItem.titleAr || menuItem.title}}</span>
                     <i class="pi" [ngClass]="'pi-' + convertIcon(menuItem.icon)"></i>
-                    <span>{{menuItem.title}}</span>
                 </a>
             </li>
         </ul>
@@ -33,18 +33,18 @@
             <div class="mobile-actions">
                 <a class="action-item">
                     <i class="pi pi-chart-bar"></i>
-                    <span>Stats</span>
+                    <span>احصائيات</span>
                 </a>
                 <a class="action-item">
                     <div class="notification-badge">
                         <i class="pi pi-bell"></i>
                         <span class="badge">5</span>
                     </div>
-                    <span>Alerts</span>
+                    <span>تنبيهات</span>
                 </a>
                 <a class="action-item">
                     <i class="pi pi-user"></i>
-                    <span>Profile</span>
+                    <span>الملف الشخصي</span>
                 </a>
             </div>
         </div>

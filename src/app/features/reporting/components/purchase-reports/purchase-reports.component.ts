@@ -13,25 +13,25 @@ export class PurchaseReportsComponent implements OnInit {
 
   summaryStats = [
     {
-      label: 'Total Purchase Orders',
+      label: 'إجمالي طلبات الشراء',
       value: '1,234',
       icon: 'pi pi-shopping-cart',
       trend: 12
     },
     {
-      label: 'Accepted Orders',
+      label: 'الطلبات المقبولة',
       value: '987',
       icon: 'pi pi-check-circle',
       trend: 8
     },
     {
-      label: 'Rejected Orders',
+      label: 'الطلبات المرفوضة',
       value: '247',
       icon: 'pi pi-times-circle',
       trend: -5
     },
     {
-      label: 'Conversion Rate',
+      label: 'معدل التحويل',
       value: '78%',
       icon: 'pi pi-chart-line',
       trend: 15
@@ -44,11 +44,18 @@ export class PurchaseReportsComponent implements OnInit {
     accepted: 0,
     rejected: 0,
     converted: 0,
-    conversionRate: 0
+    conversionRate: 0,
+    labels: {
+      totalRequests: 'إجمالي الطلبات',
+      accepted: 'مقبول',
+      rejected: 'مرفوض',
+      converted: 'تم التحويل إلى منتجات',
+      conversionRate: 'معدل التحويل'
+    }
   };
 
   monthlyOrdersData: ChartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
     datasets: [
       {
         label: 'Purchase Orders',
@@ -64,7 +71,7 @@ export class PurchaseReportsComponent implements OnInit {
   };
 
   statusDistributionData: ChartData = {
-    labels: ['Accepted', 'Rejected', 'Pending'],
+    labels: ['مقبول', 'مرفوض', 'قيد الانتظار'],
     datasets: [
       {
         data: [300, 50, 100],
@@ -87,13 +94,16 @@ export class PurchaseReportsComponent implements OnInit {
     plugins: {
       legend: {
         position: 'top',
-        labels: { color: '#495057' }
+        labels: { 
+          color: '#495057',
+          textAlign: 'right'
+        }
       },
       tooltip: {
         callbacks: {
           label: (context: any) => {
             const isSelected = this.selectedMonth === this.monthlyOrdersData.labels?.[context.dataIndex];
-            return `${isSelected ? '✓ ' : ''}${context.parsed.y} orders`;
+            return `${isSelected ? '✓ ' : ''} طلبات ${context.parsed.y}`;
           }
         },
         backgroundColor: 'rgba(26, 188, 156, 0.9)',
@@ -252,12 +262,19 @@ export class PurchaseReportsComponent implements OnInit {
       accepted: Math.floor(baseValue * 0.8), // 80% acceptance rate
       rejected: Math.floor(baseValue * 0.2), // 20% rejection rate
       converted: Math.floor(baseValue * 0.6), // 60% conversion rate
-      conversionRate: Math.floor((baseValue * 0.6 / baseValue) * 100) // Conversion percentage
+      conversionRate: Math.floor((baseValue * 0.6 / baseValue) * 100), // Conversion percentage
+      labels: {
+        totalRequests: 'إجمالي الطلبات',
+        accepted: 'مقبول',
+        rejected: 'مرفوض',
+        converted: 'تم التحويل إلى منتجات',
+        conversionRate: 'معدل التحويل'
+      }
     };
 
     // Update the pie chart data to reflect the current month
     this.statusDistributionData = {
-      labels: ['Accepted', 'Rejected', 'Pending'],
+      labels: ['مقبول', 'مرفوض', 'قيد الانتظار'],
       datasets: [{
         data: [
           this.monthDetails.accepted,

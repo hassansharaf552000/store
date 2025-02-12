@@ -1,5 +1,7 @@
 .reports-container {
   padding: var(--spacing-lg);
+  direction: rtl;
+  text-align: right;
   
   .summary-cards {
     display: grid;
@@ -17,6 +19,7 @@
         display: flex;
         align-items: center;
         gap: var(--spacing-md);
+        flex-direction: row-reverse;
 
         i {
           font-size: 2rem;
@@ -37,6 +40,8 @@
             color: var(--gray-600);
             font-size: 0.9rem;
           }
+
+          text-align: right;
         }
       }
 
@@ -46,6 +51,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        justify-content: flex-end;
 
         &.positive {
           color: var(--success-color);
@@ -73,6 +79,7 @@
       padding: var(--spacing-lg);
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
+      direction: ltr; // Keep charts left-to-right for proper display
 
       h3 {
         color: var(--primary-color);
@@ -232,6 +239,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: var(--spacing-lg);
+      flex-direction: row-reverse;
 
       h3 {
         color: var(--primary-color);
@@ -252,6 +260,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        text-align: right;
 
         .label {
           color: var(--gray-600);
@@ -310,6 +319,8 @@
         &::before {
           content: '📊';
           margin-right: var(--spacing-sm);
+          margin-left: var(--spacing-sm);
+          margin-right: 0;
         }
       }
     }

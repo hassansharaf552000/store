@@ -1,20 +1,20 @@
-<div class="card">
+<div class="card" dir="rtl">
     <div class="header-section">
-        <button pButton type="button" icon="pi pi-arrow-left" class="p-button-text back-button" (click)="goBack()"></button>
-        <h2>Purchase Order Form</h2>
+        <button pButton type="button" icon="pi pi-arrow-right" class="p-button-text back-button" (click)="goBack()"></button>
+        <h2>نموذج أمر الشراء</h2>
     </div>
     <form [formGroup]="purchaseOrderForm" (ngSubmit)="onSubmit()">
   
       <div class="p-field">
-        <label for="supplier">Supplier</label>
-        <input pInputText id="supplier" type="text" formControlName="supplier" placeholder="Enter Supplier Name"/>
+        <label for="supplier">المورد</label>
+        <input pInputText id="supplier" type="text" formControlName="supplier" placeholder="أدخل اسم المورد"/>
         <small *ngIf="purchaseOrderForm.get('supplier')?.invalid && purchaseOrderForm.get('supplier')?.touched" class="p-error">
-          Supplier is required
+          المورد مطلوب
         </small>
       </div>
   
       <div class="p-field p-mb-3">
-        <label for="orderDate" class="p-d-block">Order Date</label>
+        <label for="orderDate" class="p-d-block">تاريخ الطلب</label>
         <p-calendar id="orderDate" 
                    formControlName="orderDate" 
                    dateFormat="yy-mm-dd"
@@ -23,46 +23,46 @@
                    [showOnFocus]="false"
                    styleClass="p-mb-2 p-d-block"></p-calendar>
         <small *ngIf="purchaseOrderForm.get('orderDate')?.invalid && purchaseOrderForm.get('orderDate')?.touched" class="p-error">
-          Order date is required
+          تاريخ الطلب مطلوب
         </small>
       </div>
   
-      <h3>Items</h3>
+      <h3>العناصر</h3>
       <p-table [value]="items.controls">
         <ng-template pTemplate="header">
           <tr>
-            <th>Item Name</th>
-            <th>Unit</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
-            <th>Total</th>
-            <th>Action</th>
+            <th>اسم العنصر</th>
+            <th>الوحدة</th>
+            <th>الكمية</th>
+            <th>سعر الوحدة</th>
+            <th>الإجمالي</th>
+            <th>إجراء</th>
           </tr>
         </ng-template>
         <ng-template let-item let-i="rowIndex" pTemplate="body">
           <tr [formGroup]="item">
             <td style="min-width: 200px;">
-              <input pInputText type="text" formControlName="itemName" placeholder="Enter Item Name"/>
+              <input pInputText type="text" formControlName="itemName" placeholder="أدخل اسم العنصر"/>
               <small class="p-error" *ngIf="item.get('itemName')?.invalid && item.get('itemName')?.touched">
-                Required
+                مطلوب
               </small>
             </td>
             <td style="min-width: 100px;">
-              <input pInputText type="text" formControlName="unit" placeholder="e.g. KG, PCS"/>
+              <input pInputText type="text" formControlName="unit" placeholder="مثال: كجم، قطعة"/>
               <small class="p-error" *ngIf="item.get('unit')?.invalid && item.get('unit')?.touched">
-                Required
+                مطلوب
               </small>
             </td>
             <td style="min-width: 100px;">
-              <input pInputNumber type="number" formControlName="quantity" min="1" placeholder="Min: 1"/>
+              <input pInputNumber type="number" formControlName="quantity" min="1" placeholder="الحد الأدنى: 1"/>
               <small class="p-error" *ngIf="item.get('quantity')?.invalid && item.get('quantity')?.touched">
-                Must be > 0
+                يجب أن يكون أكبر من 0
               </small>
             </td>
             <td style="min-width: 120px;">
-              <input pInputNumber type="number" formControlName="unitPrice" min="1" placeholder="Min: 1"/>
+              <input pInputNumber type="number" formControlName="unitPrice" min="1" placeholder="الحد الأدنى: 1"/>
               <small class="p-error" *ngIf="item.get('unitPrice')?.invalid && item.get('unitPrice')?.touched">
-                Must be > 0
+                يجب أن يكون أكبر من 0
               </small>
             </td>
             <td>{{ calculateTotalPrice(i) | currency:'EGP' }}</td>
@@ -72,11 +72,11 @@
           </tr>
         </ng-template>
       </p-table>
-      <button pButton type="button" label="Add Item" icon="pi pi-plus" class="p-mt-2" (click)="addItem()"></button>
+      <button pButton type="button" label="إضافة عنصر" icon="pi pi-plus" class="p-mt-2" (click)="addItem()"></button>
   
       <button pButton 
               type="submit" 
-              label="Submit Purchase Order" 
+              label="تقديم أمر الشراء" 
               class="p-mt-3" 
               [disabled]="!isFormValid()"></button>
     </form>

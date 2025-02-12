@@ -5,15 +5,20 @@
   box-shadow: var(--shadow);
   max-width: 1200px;
   margin: var(--spacing-xl) auto;
+  padding: 2rem;
+  direction: rtl;
+  text-align: right;
 
   .header-section {
     display: flex;
     align-items: center;
     margin-bottom: var(--spacing-lg);
+    margin-bottom: 2rem;
 
     .back-button {
       margin-right: var(--spacing-md);
       color: var(--primary-color);
+      margin-left: 1rem;
 
       &:hover {
         background: var(--gray-100);
@@ -22,6 +27,7 @@
 
     h2 {
       margin-bottom: 0;
+      margin: 0;
     }
   }
 
@@ -40,12 +46,14 @@
 
   .p-field {
     margin-bottom: var(--spacing-lg);
+    margin-bottom: 1.5rem;
 
     label {
       display: block;
       margin-bottom: var(--spacing-sm);
       font-weight: var(--font-weight-medium);
       color: var(--gray-700);
+      margin-bottom: 0.5rem;
     }
 
     small.p-error {
@@ -603,4 +611,42 @@ button {
   .p-toast-message {
     border-radius: var(--border-radius-sm);
   }
+}
+
+:host ::ng-deep {
+  .p-datatable {
+    direction: rtl;
+    
+    .p-datatable-header {
+      text-align: right;
+    }
+    
+    .p-datatable-tbody > tr > td {
+      text-align: right;
+    }
+  }
+
+  .p-calendar {
+    .p-inputtext {
+      text-align: right;
+    }
+  }
+
+  .p-inputnumber {
+    .p-inputtext {
+      text-align: right;
+    }
+  }
+
+  .p-button {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+}
+
+.p-error {
+  color: #f44336;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
 }

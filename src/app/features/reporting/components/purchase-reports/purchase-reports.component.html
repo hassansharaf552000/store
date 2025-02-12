@@ -11,7 +11,7 @@
       </div>
       <div class="trend" [ngClass]="{'positive': stat.trend > 0, 'negative': stat.trend < 0}">
         <i [class]="stat.trend > 0 ? 'pi pi-arrow-up' : 'pi pi-arrow-down'"></i>
-        <span>{{stat.trend}}% from last month</span>
+        <span>{{stat.trend}}% مقارنة بالشهر السابق</span>
       </div>
     </div>
   </div>
@@ -19,10 +19,10 @@
   <!-- Main Charts -->
   <div class="charts-grid">
     <div class="card chart-card">
-      <h3>Monthly Purchase Orders</h3>
+      <h3>طلبات الشراء الشهرية</h3>
       <div class="clickable-chart" 
            (click)="onChartClick($event)"
-           pTooltip="Click on a month to view detailed reports"
+           pTooltip="انقر على الشهر لعرض التقارير التفصيلية"
            tooltipPosition="top">
         <p-chart #barChart 
                 type="bar" 
@@ -33,7 +33,7 @@
     </div>
 
     <div class="card chart-card">
-      <h3>Orders Status Distribution</h3>
+      <h3>توزيع حالة الطلبات</h3>
       <p-chart type="doughnut" [data]="statusDistributionData" [options]="pieOptions"></p-chart>
     </div>
   </div>
@@ -41,37 +41,37 @@
   <!-- Monthly Details Section -->
   <div class="card monthly-details slide-in" *ngIf="selectedMonth">
     <div class="month-header">
-      <h3>{{selectedMonth}} Details</h3>
+      <h3>تفاصيل شهر {{selectedMonth}}</h3>
       <button pButton icon="pi pi-times" class="p-button-text" (click)="closeMonthDetails()"></button>
     </div>
 
     <div class="month-stats">
       <div class="stat-item">
-        <span class="label">Total Requests</span>
+        <span class="label">{{monthDetails.labels.totalRequests}}</span>
         <span class="value">{{monthDetails.totalRequests}}</span>
       </div>
       <div class="stat-item">
-        <span class="label">Accepted</span>
+        <span class="label">{{monthDetails.labels.accepted}}</span>
         <span class="value accepted">{{monthDetails.accepted}}</span>
       </div>
       <div class="stat-item">
-        <span class="label">Rejected</span>
+        <span class="label">{{monthDetails.labels.rejected}}</span>
         <span class="value rejected">{{monthDetails.rejected}}</span>
       </div>
       <div class="stat-item">
-        <span class="label">Converted to Products</span>
+        <span class="label">{{monthDetails.labels.converted}}</span>
         <span class="value">{{monthDetails.converted}}</span>
       </div>
     </div>
 
     <div class="progress-section">
-      <h4>Conversion Progress</h4>
+      <h4>تقدم التحويل</h4>
       <p-progressBar [value]="monthDetails.conversionRate" [showValue]="true"></p-progressBar>
     </div>
 
     <!-- Add selected month highlight -->
     <div class="selected-period">
-      <span class="badge">Selected Period: {{selectedMonth}}</span>
+      <span class="badge">الفترة المحددة: {{selectedMonth}}</span>
     </div>
   </div>
 </div>

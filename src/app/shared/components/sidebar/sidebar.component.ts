@@ -3,19 +3,20 @@ import { Component, OnInit } from '@angular/core';
 interface RouteInfo {
   path: string;
   title: string;
+  titleAr: string; // Add Arabic title
   icon: string;
   class: string;
 }
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'home', class: '' }, // Changed to 'home' icon
-  { path: '/purchase', title: 'Purchase', icon: 'shopping-cart', class: '' },
-  { path: '/production', title: 'Production', icon: 'cog', class: '' },
-  { path: '/warehouse', title: 'Warehouse', icon: 'box', class: '' },
-  { path: '/accounting', title: 'Accounting', icon: 'wallet', class: '' },
-  { path: '/orders', title: 'Orders', icon: 'shopping-bag', class: '' },
-  { path: '/reporting', title: 'Reporting', icon: 'chart-bar', class: '' },
-  { path: '/user-profile', title: 'Profile', icon: 'user', class: '' },  // Changed path
-  { path: '/user-settings', title: 'Settings', icon: 'cog', class: '' }  // Changed path
+  { path: '/dashboard', title: 'Dashboard', titleAr: 'لوحة التحكم', icon: 'home', class: '' }, // Changed to 'home' icon
+  { path: '/purchase', title: 'Purchase', titleAr: 'الشراء', icon: 'shopping-cart', class: '' },
+  { path: '/production', title: 'Production', titleAr: 'الإنتاج', icon: 'cog', class: '' },
+  { path: '/warehouse', title: 'Warehouse', titleAr: 'المستودع', icon: 'box', class: '' },
+  { path: '/accounting', title: 'Accounting', titleAr: 'المحاسبة', icon: 'wallet', class: '' },
+  { path: '/orders', title: 'Orders', titleAr: 'الطلبات', icon: 'shopping-bag', class: '' },
+  { path: '/reporting', title: 'Reporting', titleAr: 'التقارير', icon: 'chart-bar', class: '' },
+  { path: '/user-profile', title: 'Profile', titleAr: 'الملف الشخصي', icon: 'user', class: '' },  // Changed path
+  { path: '/user-settings', title: 'Settings', titleAr: 'الإعدادات', icon: 'cog', class: '' }  // Changed path
 ];
 
 @Component({

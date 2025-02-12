@@ -13,6 +13,12 @@ export class PurchaseComponent {
   orders: PurchaseOrder[] = [];
   expandedRows: { [key: number]: boolean } = {};
 
+  private statusTranslations: { [key: string]: string } = {
+    'accepted': 'مقبول',
+    'declined': 'مرفوض',
+    'pending': 'قيد الانتظار'
+  };
+
   constructor(
     private purchaseOrderService: PurchaseOrderService,
     private router: Router
@@ -44,6 +50,10 @@ export class PurchaseComponent {
     this.purchaseOrderService.updateOrderStatus(order.id, 'declined').subscribe(() => {
       this.loadOrders();
     });
+  }
+
+  getStatusInArabic(status: string): string {
+    return this.statusTranslations[status] || status;
   }
 
   navigateToCreateOrder() {

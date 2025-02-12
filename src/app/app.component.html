@@ -1,9 +1,13 @@
 <div class="wrapper">
     <app-navbar></app-navbar>
-    <div class="main-panel">
-        <app-sidebar></app-sidebar>
-        <div class="content">
-            <router-outlet></router-outlet>
+    <div class="main-panel container-fluid">
+        <div class="row">
+            <div class="content col-md-9">
+                <router-outlet></router-outlet>
+            </div>
+            <div class="sidebar-container col-md-3">
+                <app-sidebar></app-sidebar>
+            </div>
         </div>
     </div>
 </div>
