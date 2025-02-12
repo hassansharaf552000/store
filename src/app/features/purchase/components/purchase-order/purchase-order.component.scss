@@ -1,0 +1,606 @@
+.card {
+  background: var(--light-color);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  max-width: 1200px;
+  margin: var(--spacing-xl) auto;
+
+  .header-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+
+    .back-button {
+      margin-right: var(--spacing-md);
+      color: var(--primary-color);
+
+      &:hover {
+        background: var(--gray-100);
+      }
+    }
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+
+  h2, h3 {
+    color: var(--primary-color);
+  }
+
+  h2 {
+    margin-bottom: var(--spacing-xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  h3 {
+    margin: var(--spacing-xl) 0 var(--spacing-md);
+  }
+
+  .p-field {
+    margin-bottom: var(--spacing-lg);
+
+    label {
+      display: block;
+      margin-bottom: var(--spacing-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--gray-700);
+    }
+
+    small.p-error {
+      color: var(--danger-color);
+      margin-top: var(--spacing-xs);
+      display: block;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: var(--spacing-sm);
+      color: var (--secondary-color);
+      background-color: var(--primary-color);
+      border: 1px solid var(--primary-light);
+      border-radius: var(--border-radius-sm);
+
+      &::placeholder {
+        color: var(--light-color);
+        opacity: 0.8;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: var(--primary-dark);
+        box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.25);
+      }
+    }
+  }
+  ::ng-deep .p-datepicker-input{
+    background-color: var(--primary-color);
+  }
+  p-dropdown, p-calendar {
+    width: 100%;
+    background-color: var(--primary-color);
+    
+    ::ng-deep {
+      .p-dropdown, 
+      .p-calendar,
+      .p-select,
+      .p-inputtext {
+        width: 100%;
+
+        .p-dropdown-label,
+        input,
+        .p-select {
+          background-color: var(--primary-color) !important;
+          color: var(--light-color) !important;
+          border: 1px solid var(--primary-light);
+
+          &::placeholder {
+            color: var(--light-color);
+            opacity: 0.8;
+          }
+
+          &:focus {
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.25);
+          }
+        }
+
+        .p-dropdown-trigger, 
+        .p-calendar-trigger {
+          background: var(--primary-color) !important;
+          color: var(--light-color) !important;
+          border: 1px solid var(--primary-light);
+          border-left: none;
+
+          &:hover {
+            background: var(--primary-dark) !important;
+          }
+        }
+      }
+
+      .p-dropdown-panel,
+      .p-calendar-panel {
+        background: var(--primary-color) !important;
+        border-color: var(--primary-light);
+
+        .p-dropdown-items,
+        .p-calendar-content {
+          background: var(--primary-color) !important;
+          
+          .p-dropdown-item,
+          .p-datepicker-calendar td span {
+            color: var(--light-color) !important;
+
+            &:hover {
+              background: var(--primary-dark) !important;
+            }
+
+            &.p-highlight {
+              background: var(--secondary-color) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  p-table {
+    margin: var(--spacing-md) 0;
+
+    ::ng-deep .p-datatable {
+      .p-datatable-header {
+        background: var(--primary-color);
+        color: var(--light-color);
+        border: none;
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-lg);
+        padding: 1rem;
+      }
+
+      .p-datatable-thead > tr > th {
+        background: var(--primary-color);
+        color: var(--light-color);
+        border: none;
+        padding: 1rem;
+        font-weight: var(--font-weight-bold);
+        white-space: nowrap;
+
+        &:hover {
+          background: var(--primary-light);
+        }
+
+        .p-column-title {
+          font-size: var(--font-size-base);
+        }
+
+        &.p-sortable-column {
+          &:hover {
+            background: var(--primary-light);
+          }
+          
+          &.p-highlight {
+            background: var(--primary-light);
+            
+            .p-sortable-column-icon {
+              color: var(--light-color);
+            }
+          }
+        }
+      }
+
+      .p-datatable-tbody > tr {
+        background: var(--light-color);
+        
+        td {
+          color: var(--primary-color);
+          border-bottom: 1px solid var(--gray-200);
+          padding: 0.75rem 1rem;
+
+          input, select, textarea {
+            color: var(--primary-color);
+            background: var(--light-color);
+            border: 1px solid var(--gray-300);
+            
+            &:focus {
+              border-color: var(--secondary-color);
+              box-shadow: 0 0 0 2px rgba(211, 84, 0, 0.1);
+            }
+          }
+
+          input {
+            &[formControlName="itemName"] {
+              width: 200px;
+            }
+            &[formControlName="unit"] {
+              width: 100px;
+            }
+            &[formControlName="quantity"] {
+              width: 100px;
+            }
+            &[formControlName="unitPrice"] {
+              width: 120px;
+            }
+          }
+        }
+
+        &:nth-child(even) {
+          background: var(--gray-100);
+        }
+
+        &:hover {
+          background: var(--gray-200);
+        }
+      }
+
+      .p-paginator {
+        background: transparent;
+        padding: 1rem;
+        
+        .p-paginator-current,
+        .p-paginator-rpp-label {
+          color: var(--primary-color);
+        }
+        
+        .p-paginator-page,
+        .p-paginator-next,
+        .p-paginator-last,
+        .p-paginator-first,
+        .p-paginator-prev {
+          color: var(--primary-color);
+          border: 1px solid var(--gray-300);
+          
+          &.p-highlight {
+            background: var (--secondary-color);
+            color: var(--light-color);
+            border-color: var(--secondary-color);
+          }
+          
+          &:not(.p-disabled):hover {
+            background: var(--gray-200);
+            border-color: var(--gray-400);
+          }
+        }
+      }
+    }
+  }
+
+  button {
+    &.p-mt-2 {
+      margin-top: 1rem;
+    }
+
+    &.p-mt-3 {
+      margin-top: 2rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    &.p-button-danger {
+      padding: 0.5rem;
+      width: 3.5rem;
+      height: 2.5rem;
+      border-radius: 4px !important;
+      transition: all 0.3s ease;
+      background-color: var(--danger-color) !important;
+      border: 1px solid var(--danger-color) !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: transparent !important;
+        color: var(--danger-color) !important;
+        border-color: var(--danger-color) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(231, 76, 60, 0.2);
+      }
+
+      .pi-trash {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+    }
+  }
+
+  ::ng-deep {
+    .p-button {
+      background: var(--secondary-color);
+      color: var(--light-color);
+      border: none;
+
+      &:hover {
+        background: var(--accent-color);
+      }
+
+      &.p-button-danger {
+        background: var(--danger-color);
+      }
+    }
+
+    .p-calendar-panel {
+      background: var(--light-color) !important;
+      
+      .p-datepicker-header {
+        background: var(--primary-color) !important;
+        color: var(--light-color);
+      }
+      
+      .p-datepicker-calendar {
+        td {
+          .p-highlight {
+            background: var(--secondary-color);
+            color: var(--light-color);
+          }
+          
+          span:hover {
+            background: var(--gray-200);
+          }
+        }
+      }
+    }
+
+    .p-dropdown, .p-calendar {
+      .p-inputtext {
+        background: var(--light-color);
+        color: var (--primary-color);
+        border: 1px solid var(--gray-300);
+      }
+      
+      .p-dropdown-trigger, .p-calendar-trigger {
+        background: var(--secondary-color);
+        color: var(--light-color);
+      }
+    }
+
+    // PrimeNG Table Styles
+    .p-datatable {
+      .p-datatable-header {
+        background: var(--primary-color);
+        color: var(--light-color);
+        border: none;
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-lg);
+        padding: 1rem;
+      }
+
+      .p-datatable-thead > tr > th {
+        background: var(--primary-color);
+        color: var(--light-color);
+        border: none;
+        padding: 1rem;
+        font-weight: var(--font-weight-bold);
+        white-space: nowrap;
+
+        &:hover {
+          background: var(--primary-light);
+        }
+
+        .p-column-title {
+          font-size: var(--font-size-base);
+        }
+
+        &.p-sortable-column {
+          &:hover {
+            background: var(--primary-light);
+          }
+          
+          &.p-highlight {
+            background: var(--primary-light);
+            
+            .p-sortable-column-icon {
+              color: var(--light-color);
+            }
+          }
+        }
+      }
+
+      .p-datatable-tbody > tr {
+        background: var(--light-color);
+        
+        td {
+          color: var(--primary-color);
+          border-bottom: 1px solid var(--gray-200);
+          padding: 0.75rem 1rem;
+
+          input, select, textarea {
+            color: var(--primary-color);
+            background: var(--light-color);
+            border: 1px solid var(--gray-300);
+            
+            &:focus {
+              border-color: var(--secondary-color);
+              box-shadow: 0 0 0 2px rgba(211, 84, 0, 0.1);
+            }
+          }
+
+          input {
+            &[formControlName="itemName"] {
+              width: 200px;
+            }
+            &[formControlName="unit"] {
+              width: 100px;
+            }
+            &[formControlName="quantity"] {
+              width: 100px;
+            }
+            &[formControlName="unitPrice"] {
+              width: 120px;
+            }
+          }
+        }
+
+        &:nth-child(even) {
+          background: var(--gray-100);
+        }
+
+        &:hover {
+          background: var(--gray-200);
+        }
+      }
+
+      .p-paginator {
+        background: transparent;
+        padding: 1rem;
+        
+        .p-paginator-current,
+        .p-paginator-rpp-label {
+          color: var(--primary-color);
+        }
+        
+        .p-paginator-page,
+        .p-paginator-next,
+        .p-paginator-last,
+        .p-paginator-first,
+        .p-paginator-prev {
+          color: var(--primary-color);
+          border: 1px solid var(--gray-300);
+          
+          &.p-highlight {
+            background: var(--secondary-color);
+            color: var(--light-color);
+            border-color: var(--secondary-color);
+          }
+          
+          &:not(.p-disabled):hover {
+            background: var(--gray-200);
+            border-color: var(--gray-400);
+          }
+        }
+      }
+    }
+
+    // PrimeNG Calendar Styles
+    .p-calendar {
+      .p-inputtext {
+        background: var(--light-color);
+        border: 1px solid var(--gray-300);
+        color: var(--primary-color);
+        
+        &:focus {
+          border-color: var(--secondary-color);
+          box-shadow: 0 0 0 2px rgba(211, 84, 0, 0.2);
+        }
+      }
+      
+      .p-button {
+        background: var(--secondary-color);
+        border: none;
+        
+        &:hover {
+          background: var(--accent-color);
+        }
+      }
+    }
+
+    // Clean, consolidated calendar styles
+    .p-calendar-panel {
+      background: var(--light-color) !important;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--border-radius);
+      color: var(--primary-color);
+      
+      .p-datepicker-header {
+        background: var(--primary-color) !important;
+        border-bottom: 1px solid var(--gray-300);
+        color: var(--light-color);
+        padding: 1rem;
+        
+        .p-datepicker-prev,
+        .p-datepicker-next {
+          color: var(--light-color);
+          
+          &:hover {
+            background: var(--primary-light);
+          }
+        }
+      }
+      
+      .p-datepicker-calendar {
+        background: var(--light-color);
+        padding: 0.5rem;
+        
+        th {
+          color: var(--primary-color);
+          padding: 0.5rem;
+          font-weight: 600;
+        }
+        
+        td {
+          padding: 0.2rem;
+          
+          span {
+            color: var(--primary-color);
+            border-radius: var(--border-radius-sm);
+            padding: 0.5rem;
+            
+            &:not(.p-disabled):not(.p-highlight):hover {
+              background: var(--gray-200);
+            }
+            
+            &.p-highlight {
+              background: var(--secondary-color);
+              color: var(--light-color);
+            }
+            
+            &.p-disabled {
+              color: var(--gray-400);
+            }
+          }
+        }
+      }
+
+      .p-datepicker-today {
+        span {
+          border-color: var(--secondary-color);
+        }
+      }
+
+      .p-timepicker {
+        border-top: 1px solid var(--gray-200);
+        padding: 0.5rem;
+        
+        button {
+          color: var(--primary-color);
+          
+          &:hover {
+            background: var(--gray-200);
+          }
+        }
+      }
+    }
+  }
+}
+
+button {
+  &.p-button {
+    background: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+
+    &:hover:not(:disabled) {
+      background: var(--primary-light);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+      background: var(--gray-400) !important;
+    }
+
+    &.p-button-danger {
+      background: var(--danger-color);
+      
+      &:hover:not(:disabled) {
+        background: darken(#e74c3c, 10%);
+      }
+    }
+  }
+}
+
+::ng-deep .p-toast {
+  .p-toast-message {
+    border-radius: var(--border-radius-sm);
+  }
+}

@@ -1,1 +1,17 @@
-<p>production works!</p>
+<div class="container">
+    <p-card styleClass="p-card" (click)="navigateToPurchaseOrders()">
+        <div class="card-content">
+            <i class="pi pi-shopping-cart icon"></i>
+            <h2 class="card-title">Purchase Orders</h2>
+            <p class="card-description">Manage purchase orders and transactions</p>
+        </div>
+    </p-card>
+
+    <p-card styleClass="p-card" (click)="navigateToMaterialOrders()">
+        <div class="card-content">
+            <i class="pi pi-box icon"></i>
+            <h2 class="card-title">Material Orders</h2>
+            <p class="card-description">Track and manage material orders</p>
+        </div>
+    </p-card>
+</div>

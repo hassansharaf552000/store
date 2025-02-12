@@ -1,82 +1,81 @@
+@use '../../../shared/styles/variables' as *;
+
 .sidebar-wrapper {
-  width: 200px;
+  width: var(--sidebar-width);
   height: 100vh;
-  background: #1bad90;
+  background: var(--primary-color);
   position: fixed;
   top: 0;
   left: 0;
-  padding-top: 70px;
+  padding-top: 50px;
   color: white;
   z-index: 1;
   
   .logo {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: var(--spacing-md);
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.1);
     
     img {
       width: 35px;
-      margin-right: 10px;
+      margin-right: var(--spacing-sm);
     }
     
     .simple-text {
+      @include flex-center;
       color: white;
       text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-medium);
     }
   }
 
   .nav {
-    margin-top: 20px;
+    margin-top: var(--spacing-lg);
+    padding: 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     
     .nav-item {
-      margin: 5px 15px;
-      border-radius: 4px;
-      transition: all 0.3s ease;
+      width: 90%;
+      margin: 0 0;
+      padding: 0 0;
+      border-radius: var(--border-radius-sm);
+      @include transition-base;
       
       .nav-link {
-        padding: 12px 15px;
-        color: rgba(255,255,255,0.8);
         display: flex;
         align-items: center;
+        justify-content: left;
+        direction: ltr;
+        padding: 0.75rem 1rem;
+        width: 100%;
+        color: rgba(255,255,255,0.8);
         text-decoration: none;
-        transition: all 0.3s ease;
+        border-radius: var(--border-radius-sm);
+        transition: all 0.2s ease;
         
         i {
-          font-size: 1.25rem;
-          margin-right: 15px;
-          transition: all 0.3s ease;
+          width: 24px;
+          text-align: center;
+          margin-right: 0.75rem;
         }
         
-        p {
-          margin: 0;
-          font-size: 0.9rem;
-          font-weight: 400;
-          line-height: 1.5;
+        span {
+          flex: 1;
         }
         
         &:hover {
-          background: rgba(255,255,255,0.1);
-          color: white;
-          border-radius: 4px;
-          
-          i {
-            transform: translateX(5px);
-          }
+          background: var(--primary-light);
+          color: var(--secondary-color);
         }
       }
       
       &.active {
-        background: rgba(255,255,255,0.1);
-        
         .nav-link {
-          color: white;
-          
-          i {
-            color: #066451;
-          }
+          background: var(--secondary-color);
+          color: var(--light-color);
         }
       }
     }
@@ -89,7 +88,7 @@
   border-bottom: 1px solid rgba(255,255,255,0.1);
   
   .input-group {
-    background: rgba(255,255,255,0.1);
+    background: var(--primary-light);
     border-radius: 20px;
     padding: 5px;
     
@@ -112,19 +111,31 @@
 }
 
 .sidebar-container {
-  height: 100%;
-  
+  height: 100vh;
+  width: var(--sidebar-width);
+  position: fixed;
+  background: var(--primary-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
   .logo {
-    padding: 1.5rem;
+    height: 60px;
+    padding: 0 1rem;
     border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
     
     .simple-text {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 1rem;
       color: white;
-      font-size: 1.25rem;
       text-decoration: none;
+      font-size: 1.25rem;
       
       .pi {
         font-size: 1.5rem;
@@ -133,34 +144,33 @@
   }
 
   .nav {
-    padding: 1rem 0;
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
     
     .nav-item {
-      margin: 0.25rem 1rem;
+      width: 100%;
+      border-radius: var(--border-radius-sm);
       
       .nav-link {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        padding: 0.75rem 1rem;
+        padding: 0.875rem 0.5rem;
         color: rgba(255,255,255,0.8);
-        border-radius: 8px;
+        text-decoration: none;
+        border-radius: var(--border-radius-sm);
         transition: all 0.2s ease;
         
-        .pi {
-          font-size: 1.1rem;
+        i {
           width: 1.5rem;
-        }
-        
-        span {
-          font-size: 0.9rem;
-          font-weight: 400;
+          margin-right: 0.75rem;
         }
         
         &:hover {
           background: rgba(255,255,255,0.1);
           color: white;
-          transform: translateX(5px);
+          transform: translateX(4px);
         }
       }
       
@@ -173,18 +183,19 @@
   }
 
   .mobile-search {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin: 0 1rem 1rem;
     
     .p-input-icon-right {
       width: 100%;
       
       input {
         width: 100%;
+        height: 2.5rem;
         background: rgba(255,255,255,0.1);
         border: none;
         color: white;
         border-radius: 20px;
+        padding: 0 2.5rem 0 1.25rem;
         
         &::placeholder {
           color: rgba(255,255,255,0.5);
@@ -193,20 +204,20 @@
       
       .pi {
         color: rgba(255,255,255,0.5);
+        right: 1rem;
       }
     }
   }
 
   .mobile-bottom-menu {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    margin-top: auto;
     padding: 1rem;
     border-top: 1px solid rgba(255,255,255,0.1);
     
     .mobile-actions {
-      display: flex;
-      justify-content: space-around;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
       
       .action-item {
         display: flex;
@@ -215,6 +226,14 @@
         color: rgba(255,255,255,0.8);
         gap: 0.5rem;
         text-decoration: none;
+        padding: 0.5rem;
+        border-radius: var(--border-radius-sm);
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background: rgba(255,255,255,0.1);
+          color: white;
+        }
         
         .pi {
           font-size: 1.25rem;
@@ -229,16 +248,47 @@
           
           .badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -6px;
+            right: -6px;
             background: #e74c3c;
             color: white;
             border-radius: 50%;
-            padding: 0.2rem 0.4rem;
-            font-size: 0.7rem;
+            min-width: 18px;
+            height: 18px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
           }
         }
       }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-container {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Adjust main content area to account for sidebar
+.main-content {
+  margin-left: var(--sidebar-width);
+  padding: var(--spacing-lg);
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+// Add responsive adjustments
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: var(--spacing-md);
   }
 }

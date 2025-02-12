@@ -1,10 +1,29 @@
 .card {
     background: var(--light-color);
-    padding: 1rem;
+    padding: var(--spacing-xl);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     max-width: 1200px;
     margin: var(--spacing-xl) auto;
+  
+    .header-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+  
+      .back-button {
+        margin-right: var(--spacing-md);
+        color: var(--primary-color);
+  
+        &:hover {
+          background: var(--gray-100);
+        }
+      }
+  
+      h2 {
+        margin-bottom: 0;
+      }
+    }
   
     h2, h3 {
       color: var(--primary-color);
@@ -174,7 +193,7 @@
           background: var(--light-color);
           
           td {
-            color: var (--primary-color);
+            color: var(--primary-color);
             border-bottom: 1px solid var(--gray-200);
             padding: 0.75rem 1rem;
   
@@ -232,7 +251,7 @@
             border: 1px solid var(--gray-300);
             
             &.p-highlight {
-              background: var(--secondary-color);
+              background: var (--secondary-color);
               color: var(--light-color);
               border-color: var(--secondary-color);
             }
@@ -246,22 +265,6 @@
       }
     }
   
-    .order-items {
-      background: #f8f9fa;
-      margin: 0.5rem;
-      border-radius: 4px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-      
-      .pi {
-        font-size: 1.25rem;
-        color: var(--primary-color);
-      }
-    }
-
     button {
       &.p-mt-2 {
         margin-top: 1rem;
@@ -465,16 +468,6 @@
             }
           }
         }
-
-        .p-datatable-tbody {
-          > tr {
-            &.p-rowexpand-content {
-              > td {
-                padding: 0;
-              }
-            }
-          }
-        }
       }
   
       // PrimeNG Calendar Styles
@@ -612,35 +605,43 @@
     }
   }
 
-  .expanded-row-content {
-    padding: 1.5rem;
-    background: #f8f9fa;
-    border-radius: 4px;
-    margin: 0.5rem 1rem;
-    
-    h5 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-    }
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
   
-    .nested-table {
-      background: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      border-radius: 4px;
-      overflow: hidden;
+    button {
+      width: 2.5rem !important;  // Made width consistent
+      height: 2.5rem !important; // Made height consistent
+      padding: 0 !important;     // Remove padding to ensure icon centering
   
-      .text-right {
-        text-align: right;
+      .pi {
+        font-size: 1rem;        // Consistent icon size
       }
   
-      .font-bold {
-        font-weight: 600;
+      &.p-button-success {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+  
+        &:enabled:hover {
+          background-color: var(--success-dark);
+          border-color: var(--success-dark);
+        }
       }
   
-      tr:last-child td {
-        border-bottom: none;
+      &.p-button-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+  
+        &:enabled:hover {
+          background-color: var(--danger-dark);
+          border-color: var(--danger-dark);
+        }
+      }
+  
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
       }
     }
   }
-
-

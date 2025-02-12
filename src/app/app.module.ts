@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { share } from 'rxjs';
 import { SharedModule } from './shared/shared.module';
-import { PurchaseRequestComponent } from './features/purchase/purchase-request/purchase-request.component';
-import { PurchaseModule } from './features/purchase/purchase.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
 
 @NgModule({
   declarations: [
@@ -16,10 +16,15 @@ import { PurchaseModule } from './features/purchase/purchase.module';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    PurchaseModule
-    
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync(),
+        providePrimeNG({
+            theme: {
+                preset: Aura
+            }
+        })
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

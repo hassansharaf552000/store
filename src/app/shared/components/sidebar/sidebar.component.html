@@ -18,7 +18,9 @@
 
         <!-- Navigation Menu -->
         <ul class="nav">
-            <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="nav-item">
+            <li routerLinkActive="active" 
+                *ngFor="let menuItem of menuItems" 
+                class="nav-item">
                 <a class="nav-link" [routerLink]="[menuItem.path]">
                     <i class="pi" [ngClass]="'pi-' + convertIcon(menuItem.icon)"></i>
                     <span>{{menuItem.title}}</span>

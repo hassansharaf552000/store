@@ -1,46 +1,61 @@
+@use './shared/styles/variables' as *;
+
 .wrapper {
   position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--gray-100);
 }
 
 .main-panel {
-  display: flex;
-  flex: 1;
-  margin-top: 70px; // Height of navbar
   position: relative;
+  display: flex;
+  min-height: calc(100vh - var(--navbar-height));
+  margin-top: var(--navbar-height);
   
   app-sidebar {
-    width: 260px;
+    width: var(--sidebar-width);
     position: fixed;
     left: 0;
-    height: calc(100vh - 70px); // Subtract navbar height
+    height: calc(100vh - var(--navbar-height));
   }
   
   .content {
-    margin-left: 260px; // Width of sidebar
     flex: 1;
-    padding: 20px;
-    background: #f4f6f9;
-    min-height: calc(100vh - 70px); // Subtract navbar height
+    padding: var(--container-padding);
+    margin-left: var(--sidebar-width);
+    background: var(--gray-100);
+    min-height: calc(100vh - var(--navbar-height));
   }
 }
 
-// Responsive adjustments
-@media (max-width: 991px) {
+// Responsive adjustments with variables
+@media (max-width: map-get($breakpoints, lg)) {
   .main-panel {
     .content {
       margin-left: 0;
+      width: 100%;
     }
     
     app-sidebar {
-      transform: translateX(-260px);
-      transition: transform 0.3s ease;
+      transform: translateX(calc(-1 * var(--sidebar-width)));
+      @include transition-base;
       
       &.show {
         transform: translateX(0);
       }
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints, md)) {
+  .main-panel {
+    margin-top: 60px;
+    min-height: calc(100vh - 60px);
+    
+    .content {
+      padding: var(--spacing-md);
     }
   }
 }
