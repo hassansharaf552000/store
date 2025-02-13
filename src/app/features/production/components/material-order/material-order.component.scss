@@ -10,10 +10,13 @@
       display: flex;
       align-items: center;
       margin-bottom: var(--spacing-lg);
+      direction: rtl;
   
       .back-button {
         margin-right: var(--spacing-md);
         color: var(--primary-color);
+        margin-left: var(--spacing-md);
+        margin-right: 0;
   
         &:hover {
           background: var(--gray-100);
@@ -40,12 +43,14 @@
   
     .p-field {
       margin-bottom: var(--spacing-lg);
+      text-align: right;
   
       label {
         display: block;
         margin-bottom: var(--spacing-sm);
         font-weight: var(--font-weight-medium);
         color: var(--gray-700);
+        text-align: right;
       }
   
       small.p-error {
@@ -80,6 +85,7 @@
     p-dropdown, p-calendar {
       width: 100%;
       background-color: var(--primary-color);
+      direction: rtl;
       
       ::ng-deep {
         .p-dropdown, 
@@ -112,10 +118,8 @@
             color: var(--light-color) !important;
             border: 1px solid var(--primary-light);
             border-left: none;
-  
-            &:hover {
-              background: var(--primary-dark) !important;
-            }
+            border-right: none;
+            border-left: 1px solid var(--primary-light);
           }
         }
   
@@ -165,6 +169,8 @@
           padding: 1rem;
           font-weight: var(--font-weight-bold);
           white-space: nowrap;
+          direction: rtl;
+          text-align: right;
   
           &:hover {
             background: var(--primary-light);
@@ -191,11 +197,13 @@
   
         .p-datatable-tbody > tr {
           background: var(--light-color);
+          direction: rtl;
           
           td {
             color: var(--primary-color);
             border-bottom: 1px solid var(--gray-200);
             padding: 0.75rem 1rem;
+            text-align: right;
   
             input, select, textarea {
               color: var(--primary-color);
@@ -644,4 +652,13 @@
         cursor: not-allowed;
       }
     }
+  }
+
+  .receipt-details {
+    direction: rtl;
+    text-align: right;
+  }
+
+  * {
+    font-family: 'Cairo', 'Arial', sans-serif;
   }

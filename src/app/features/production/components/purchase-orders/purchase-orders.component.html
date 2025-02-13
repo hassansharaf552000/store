@@ -2,7 +2,7 @@
   <div class="header-section">
     <button pButton 
             icon="pi pi-arrow-left" 
-            label="Back to Production" 
+            label="العودة إلى الإنتاج" 
             class="p-button-text back-button"
             (click)="goBack()">
     </button>
@@ -11,12 +11,12 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 3rem"></th>
-        <th>Order ID</th>
-        <th>Supplier</th>
-        <th>Date</th>
-        <th>Total Amount</th>
-        <th>Status</th>
-        <th>Actions</th>
+        <th>رقم الطلب</th>
+        <th>المورد</th>
+        <th>التاريخ</th>
+        <th>المبلغ الإجمالي</th>
+        <th>الحالة</th>
+        <th>الإجراءات</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-order>
@@ -47,14 +47,14 @@
                     class="p-button-success p-button-sm" 
                     (click)="onAccept(order)"
                     [disabled]="order.status === 'accepted' || order.status === 'declined'"
-                    pTooltip="Accept">
+                    pTooltip="قبول">
             </button>
             <button pButton 
                     icon="pi pi-times" 
                     class="p-button-danger p-button-sm" 
                     (click)="onDecline(order)"
                     [disabled]="order.status === 'accepted' || order.status === 'declined'"
-                    pTooltip="Decline">
+                    pTooltip="رفض">
             </button>
           </div>
         </td>
@@ -65,11 +65,11 @@
             <p-table [value]="order.items">
               <ng-template pTemplate="header">
                 <tr>
-                  <th>Item Name</th>
-                  <th>Unit</th>
-                  <th>Quantity</th>
-                  <th>Unit Price</th>
-                  <th>Total</th>
+                  <th>اسم المنتج</th>
+                  <th>الوحدة</th>
+                  <th>الكمية</th>
+                  <th>سعر الوحدة</th>
+                  <th>المجموع</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-item>

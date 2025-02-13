@@ -5,7 +5,7 @@
             class="p-button-text back-button" 
             (click)="goBack()">
     </button>
-    <h2>Material Orders</h2>
+    <h2>طلبات المواد</h2>
   </div>
 
   <p-table [value]="materialOrders" 
@@ -14,12 +14,12 @@
            [loading]="materialOrders.length === 0">
     <ng-template pTemplate="header">
       <tr>
-        <th>Receipt Number</th>
-        <th>PO Reference</th>
-        <th>Supplier</th>
-        <th>Date</th>
-        <th>Total Amount</th>
-        <th>Status</th>
+        <th>رقم الإيصال</th>
+        <th>رقم مرجع الطلب</th>
+        <th>المورد</th>
+        <th>التاريخ</th>
+        <th>المبلغ الإجمالي</th>
+        <th>الحالة</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-order>
@@ -30,14 +30,14 @@
         <td>{{order.receivedDate | date}}</td>
         <td>{{order.totalAmount | currency:'USD'}}</td>
         <td>
-          <p-tag severity="success" value="Received"></p-tag>
+          <p-tag severity="success" value="مستلم"></p-tag>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
       <tr>
         <td colspan="6" class="text-center p-4">
-          No material orders found
+          لم يتم العثور على طلبات مواد
         </td>
       </tr>
     </ng-template>

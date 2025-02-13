@@ -5,6 +5,7 @@
   min-height: 80vh;
   gap: 2rem;
   padding: 2rem;
+  text-align: right;
 }
 
 :host ::ng-deep .p-card {
@@ -12,6 +13,10 @@
   height: 200px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  
+  .p-card-content {
+    padding: 0;
+  }
   
   &:hover {
     transform: translateY(-5px);
@@ -37,8 +42,20 @@
 .card-title {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  font-family: 'Cairo', sans-serif;
 }
 
 .card-description {
   color: var(--text-color-secondary);
+  font-family: 'Cairo', sans-serif;
+}
+
+[dir="rtl"] {
+  .container {
+    direction: rtl;
+  }
+  
+  .card-content {
+    text-align: center;
+  }
 }

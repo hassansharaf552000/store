@@ -45,16 +45,16 @@ export class PurchaseOrdersComponent {
         (materialOrder) => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Success',
-            detail: `Material Order created with receipt number: ${materialOrder.receiptNumber}`
+            summary: 'نجاح',
+            detail: `تم إنشاء طلب المواد برقم الإيصال: ${materialOrder.receiptNumber}`
           });
           this.router.navigate(['/production/material-order', materialOrder.id]);
         },
         (error) => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Error',
-            detail: 'Failed to create material order'
+            summary: 'خطأ',
+            detail: 'فشل في إنشاء طلب المواد'
           });
         }
       );

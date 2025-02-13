@@ -1,24 +1,24 @@
 <p-card>
   <div class="header-section">
     <button pButton 
-            icon="pi pi-arrow-left" 
+            icon="pi pi-arrow-right" 
             class="p-button-text back-button" 
             (click)="goBack()">
     </button>
-    <h2>Material Receipt</h2>
+    <h2>استلام المواد</h2>
   </div>
 
   <div class="receipt-details" *ngIf="materialOrder">
     <div class="p-grid">
       <div class="p-col-6">
-        <p><strong>Receipt Number:</strong> {{materialOrder.receiptNumber}}</p>
-        <p><strong>PO Reference:</strong> {{materialOrder.purchaseOrderId}}</p>
-        <p><strong>Supplier:</strong> {{materialOrder.supplier}}</p>
+        <p><strong>رقم الإيصال:</strong> {{materialOrder.receiptNumber}}</p>
+        <p><strong>رقم أمر الشراء:</strong> {{materialOrder.purchaseOrderId}}</p>
+        <p><strong>المورد:</strong> {{materialOrder.supplier}}</p>
       </div>
-      <div class="p-col-6 text-right">
-        <p><strong>Date:</strong> {{materialOrder.receivedDate | date}}</p>
-        <p><strong>Status:</strong> 
-          <p-tag [severity]="'success'" value="Received"></p-tag>
+      <div class="p-col-6">
+        <p><strong>التاريخ:</strong> {{materialOrder.receivedDate | date}}</p>
+        <p><strong>الحالة:</strong> 
+          <p-tag [severity]="'success'" value="تم الاستلام"></p-tag>
         </p>
       </div>
     </div>
@@ -27,11 +27,11 @@
       <p-table [value]="materialOrder.items">
         <ng-template pTemplate="header">
           <tr>
-            <th>Item Name</th>
-            <th>Unit</th>
-            <th class="text-right">Quantity</th>
-            <th class="text-right">Unit Price</th>
-            <th class="text-right">Total</th>
+            <th>اسم المادة</th>
+            <th>الوحدة</th>
+            <th class="text-right">الكمية</th>
+            <th class="text-right">سعر الوحدة</th>
+            <th class="text-right">المجموع</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -39,14 +39,14 @@
             <td>{{item.itemName}}</td>
             <td>{{item.unit}}</td>
             <td class="text-right">{{item.quantity}}</td>
-            <td class="text-right">{{item.unitPrice | currency:'USD'}}</td>
-            <td class="text-right">{{item.total | currency:'USD'}}</td>
+            <td class="text-right">{{item.unitPrice | currency:'SAR'}}</td>
+            <td class="text-right">{{item.total | currency:'SAR'}}</td>
           </tr>
         </ng-template>
         <ng-template pTemplate="footer">
           <tr>
-            <td colspan="4" class="text-right"><strong>Total Amount:</strong></td>
-            <td class="text-right"><strong>{{materialOrder.totalAmount | currency:'USD'}}</strong></td>
+            <td colspan="4" class="text-right"><strong>المبلغ الإجمالي:</strong></td>
+            <td class="text-right"><strong>{{materialOrder.totalAmount | currency:'SAR'}}</strong></td>
           </tr>
         </ng-template>
       </p-table>
