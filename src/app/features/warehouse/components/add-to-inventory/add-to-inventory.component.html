@@ -1,0 +1,65 @@
+<div class="add-inventory-container">
+  <div class="header">
+    <h2>إضافة للمخزون</h2>
+    <p>إضافة مواد خام جديدة لقاعدة بيانات المخزن</p>
+  </div>
+
+  <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()" class="inventory-form">
+    <div class="form-group">
+      <label for="materialName">عناصر الخام</label>
+      <input 
+        id="materialName"
+        type="text"
+        pInputText
+        formControlName="materialName"
+        placeholder="أدخل اسم المادة الخام"
+      >
+      <small class="error" *ngIf="inventoryForm.get('materialName')?.invalid && inventoryForm.get('materialName')?.touched">
+        هذا الحقل مطلوب
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="unit">وحدة القياس</label>
+      <select
+        id="unit"
+        formControlName="unit"
+        class="form-select"
+      >
+        <option value="">اختر وحدة القياس</option>
+        <option *ngFor="let unit of units" [value]="unit.code">
+          {{unit.name}}
+        </option>
+      </select>
+      <small class="error" *ngIf="inventoryForm.get('unit')?.invalid && inventoryForm.get('unit')?.touched">
+        يرجى اختيار وحدة القياس
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">الكمية</label>
+      <p-inputNumber
+        id="quantity"
+        formControlName="quantity"
+        [min]="1"
+        [showButtons]="true"
+        placeholder="أدخل الكمية"
+        [style]="{'width':'100%'}"
+      ></p-inputNumber>
+      <small class="error" *ngIf="inventoryForm.get('quantity')?.invalid && inventoryForm.get('quantity')?.touched">
+        يرجى إدخال كمية صحيحة
+      </small>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        pButton 
+        type="submit" 
+        label="إضافة للمخزن"
+        [disabled]="inventoryForm.invalid"
+      ></button>
+    </div>
+  </form>
+</div>
+
+<p-toast position="top-center"></p-toast>

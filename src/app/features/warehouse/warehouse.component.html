@@ -1,1 +1,27 @@
-<p>warehouse works!</p>
+<div class="warehouse-dashboard" *ngIf="!isSubRoute">
+  <h1>إدارة المخزن</h1>
+  
+  <div class="dashboard-grid">
+    <div class="dashboard-card" (click)="navigateTo('add')">
+      <p-card>
+        <div class="card-content">
+          <i class="pi pi-plus-circle"></i>
+          <h3>إضافة للمخزون</h3>
+          <p>إضافة مواد خام جديدة للمخزن</p>
+        </div>
+      </p-card>
+    </div>
+
+    <div class="dashboard-card" (click)="navigateTo('inventory')">
+      <p-card>
+        <div class="card-content">
+          <i class="pi pi-list"></i>
+          <h3>عرض المخزن</h3>
+          <p>عرض محتويات المخزن والكميات المتوفرة</p>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
