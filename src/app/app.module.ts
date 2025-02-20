@@ -8,6 +8,10 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { ChartModule } from 'primeng/chart';
 import { ReportingModule } from './features/reporting/reporting.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -15,10 +19,12 @@ import { ReportingModule } from './features/reporting/reporting.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     SharedModule,
     ChartModule,
     ReportingModule
+    
   ],
   providers: [
     provideAnimationsAsync(),
@@ -26,7 +32,17 @@ import { ReportingModule } from './features/reporting/reporting.module';
       theme: {
         preset: Aura
       }
-    })
+    }),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

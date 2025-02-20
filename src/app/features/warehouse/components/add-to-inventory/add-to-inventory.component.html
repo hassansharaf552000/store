@@ -1,21 +1,30 @@
 <div class="add-inventory-container">
   <div class="header">
-    <h2>إضافة للمخزون</h2>
-    <p>إضافة مواد خام جديدة لقاعدة بيانات المخزن</p>
+    <a *ngIf="isEditMode" 
+       class="back-link" 
+       (click)="onBack()">
+      <i class="pi pi-arrow-right"></i>
+      العودة للمواد الخام
+    </a>
+    <h2 class="mt-3">{{pageTitle}}</h2>
+    <p>{{pageSubTitle}}</p>
   </div>
 
   <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()" class="inventory-form">
     <div class="form-group">
-      <label for="materialName">عناصر الخام</label>
+      <label for="name">اسم المادة الخام</label>
       <input 
-        id="materialName"
+        id="name"
         type="text"
         pInputText
-        formControlName="materialName"
+        formControlName="name"
         placeholder="أدخل اسم المادة الخام"
       >
-      <small class="error" *ngIf="inventoryForm.get('materialName')?.invalid && inventoryForm.get('materialName')?.touched">
+      <small class="error" *ngIf="inventoryForm.get('name')?.errors?.['required'] && inventoryForm.get('name')?.touched">
         هذا الحقل مطلوب
+      </small>
+      <small class="error" *ngIf="inventoryForm.get('name')?.errors?.['maxlength']">
+        يجب ألا يتجاوز الاسم 100 حرف
       </small>
     </div>
 
@@ -37,25 +46,29 @@
     </div>
 
     <div class="form-group">
-      <label for="quantity">الكمية</label>
+      <label for="unit_count">الكمية</label>
       <p-inputNumber
-        id="quantity"
-        formControlName="quantity"
-        [min]="1"
+        id="unit_count"
+        formControlName="unit_count"
+        [min]="0"
+        [max]="2147483647"
         [showButtons]="true"
         placeholder="أدخل الكمية"
         [style]="{'width':'100%'}"
       ></p-inputNumber>
-      <small class="error" *ngIf="inventoryForm.get('quantity')?.invalid && inventoryForm.get('quantity')?.touched">
-        يرجى إدخال كمية صحيحة
+      <small class="error" *ngIf="inventoryForm.get('unit_count')?.errors?.['required'] && inventoryForm.get('unit_count')?.touched">
+        يرجى إدخال الكمية
+      </small>
+      <small class="error" *ngIf="inventoryForm.get('unit_count')?.errors?.['min'] || inventoryForm.get('unit_count')?.errors?.['max']">
+        يجب أن تكون الكمية بين 0 و 2147483647
       </small>
     </div>
 
-    <div class="form-actions">
+    <div class="form-actions d-flex justify-content-end gap-3">
       <button 
         pButton 
         type="submit" 
-        label="إضافة للمخزن"
+        [label]="submitButtonLabel"
         [disabled]="inventoryForm.invalid"
       ></button>
     </div>

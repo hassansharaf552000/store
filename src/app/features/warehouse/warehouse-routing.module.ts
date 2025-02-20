@@ -10,7 +10,8 @@ const routes: Routes = [
     component: WarehouseComponent,
     children: [
       { path: 'add', component: AddToInventoryComponent },
-      { path: 'inventory', component: InventoryComponent }
+      { path: 'inventory', component: InventoryComponent },
+      { path: 'inventory/add/:id', component: AddToInventoryComponent }
     ]
   }
 ];

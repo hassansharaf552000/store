@@ -3,23 +3,22 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-
-
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
     SidebarComponent,
-    NavbarComponent,    
+    NavbarComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
     RouterModule
-
   ],
   exports: [
     SidebarComponent,
     NavbarComponent,
-  ] 
-
+    SpinnerComponent
+  ]
 })
 export class SharedModule { }

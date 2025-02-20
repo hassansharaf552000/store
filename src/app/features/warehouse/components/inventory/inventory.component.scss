@@ -22,7 +22,7 @@
 
   ::ng-deep {
     .p-datatable {
-      background: white;
+      background: #f8fafc;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow-sm);
       border: none !important;
@@ -44,12 +44,13 @@
         border: none !important;
         
         > th {
-          background: var(--gray-200);
-          color: var(--gray-800);
+          background: #edf2f7;
+          color: #2d3748;
           padding: 1rem;
-          font-weight: var(--font-weight-bold);
+          font-weight: 600;
           font-size: 0.95rem;
           border: none !important;
+          border-bottom: 2px solid #e2e8f0;
         }
       }
 
@@ -62,29 +63,35 @@
 
           > td {
             padding: 0.75rem 1rem;
-            color: var(--gray-600);
+            color: #4a5568;
             font-size: 0.9rem;
             border: none !important;
             background: transparent !important;
+            border-bottom: 1px solid #edf2f7;
           }
 
-          &:nth-child(odd), &:nth-child(even) {
-            background: white;
+          &:nth-child(odd) {
+            background: #ffffff;
+            border: none !important;
+          }
+
+          &:nth-child(even) {
+            background: #f1f5f9;
             border: none !important;
           }
 
           &:hover {
-            background: var(--gray-50);
+            background: #e8f0fe;
             
             > td {
-              color: var(--secondary-color);
+              color: #2b6cb0;
             }
           }
         }
       }
 
       .p-paginator {
-        background: white;
+        background: #edf2f7;
         border: none !important;
         padding: 1rem;
 
