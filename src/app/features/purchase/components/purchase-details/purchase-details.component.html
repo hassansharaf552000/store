@@ -1,0 +1,85 @@
+<div class="purchase-details card" *ngIf="purchase" dir="rtl">
+  <div class="header">
+    <a class="back-link fs-5" (click)="goBack()">
+    <i class="pi pi-arrow-right"></i>
+    عودة
+    </a>
+    <h2>تفاصيل الطلب {{purchase.purchase_number}}</h2>
+  </div>
+
+  <div class="details-grid">
+    <div class="detail-item">
+      <label>حالة الطلب</label>
+      <p-tag [severity]="purchase.status === 'accepted' ? 'success' : 
+                        purchase.status === 'declined' ? 'danger' : 'warn'"
+             [value]="purchase.status_display">
+      </p-tag>
+    </div>
+
+    <div class="detail-item">
+      <label>المورد</label>
+      <p>{{purchase.supplier.name}}</p>
+    </div>
+
+    <div class="detail-item">
+      <label>تاريخ الإنشاء</label>
+      <p>{{purchase.created_at | date}}</p>
+    </div>
+
+    <div class="detail-item">
+      <label>التكلفة الإجمالية</label>
+      <p>{{purchase.total_cost | arabicCurrency}}</p>
+    </div>
+
+    <div class="detail-item">
+      <label>منشئ الطلب</label>
+      <p>{{purchase.created_by.username}}</p>
+    </div>
+
+    <div class="detail-item">
+      <label>الغرض</label>
+      <p>{{purchase.purpose}}</p>
+    </div>
+  </div>
+
+  <div class="materials-section">
+    <h3>المواد المطلوبة</h3>
+    <p-table [value]="purchase.raw_materials" styleClass="p-datatable-sm materials-table">
+      <ng-template pTemplate="header">
+        <tr class="text-light">
+          <th>المادة</th>
+          <th>الوحدة</th>
+          <th>الكمية</th>
+          <th>سعر الوحدة</th>
+          <th>السعر الإجمالي</th>
+          <th>الحالة</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td class="material-name">{{item.raw_material.name}}</td>
+          <td class="unit text-dark">{{getUnitLabel(item.unit)}}</td>
+          <td class="quantity">{{item.quantity}}</td>
+          <td class="price">{{item.unit_price | arabicCurrency}}</td>
+          <td class="total-price">{{calculateItemTotal(item) | arabicCurrency}}</td>
+          <td>
+            <p-tag [severity]="getDeliveryStatusSeverity(item.delivery_status)"
+                   [value]="item.delivery_status_display">
+            </p-tag>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div class="actions">
+    <button pButton 
+            label="إلغاء الطلب" 
+            icon="pi pi-times" 
+            class="p-button-danger"
+            [disabled]="purchase.status !== 'pending'"
+            (click)="cancelPurchase()">
+    </button>
+  </div>
+</div>
+

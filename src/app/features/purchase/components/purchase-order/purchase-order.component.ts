@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { PurchaseOrderService } from '../../services/purchase-order.service';
+import { PurchaseService } from '../../services/purchase.service';
 import { Router } from '@angular/router';
+import { UnitService } from '../../../../shared/services/unit.service';
+import { SupplierService } from '../../../../shared/services/supplier.service';
 
 @Component({
   selector: 'app-purchase-order',
@@ -14,12 +16,16 @@ export class PurchaseOrderComponent implements OnInit {
   purchaseOrderForm: FormGroup;
   suppliers: any[] = [];
   itemsList: any[] = [];
+  units: any[] = [];
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
-    private purchaseOrderService: PurchaseOrderService,
-    private router: Router
+    private purchaseService: PurchaseService,
+    private router: Router,
+    private supplierService: SupplierService,
+    private unitService: UnitService
   ) {
     this.purchaseOrderForm = this.fb.group({
       supplier: [null, Validators.required],
@@ -32,7 +38,50 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadSuppliers();
+    this.loadUnits();
+  }
 
+  loadSuppliers() {
+    this.loading = true;
+    this.supplierService.getSuppliers().subscribe({
+      next: (response) => {
+        this.suppliers = response.results.map((supplier: any) => ({
+          label: supplier.name,
+          value: supplier.id
+        }));
+        this.loading = false;
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'خطأ',
+          detail: 'فشل في تحميل الموردين'
+        });
+        this.loading = false;
+      }
+    });
+  }
+
+  loadUnits() {
+    this.loading = true;
+    this.unitService.getUnits().subscribe({
+      next: (response) => {
+        this.units = response.map((unit: any) => ({
+          label: unit.name,
+          value: unit.id
+        }));
+        this.loading = false;
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'خطأ',
+          detail: 'فشل في تحميل الوحدات'
+        });
+        this.loading = false;
+      }
+    });
   }
 
   get items(): FormArray {
@@ -43,7 +92,7 @@ export class PurchaseOrderComponent implements OnInit {
     this.items.push(
       this.fb.group({
         itemName: [null, Validators.required],
-        unit: [null, Validators.required],
+        unit: ["", Validators.required],
         quantity: [1, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]*$')]],
         unitPrice: [null, [Validators.required, Validators.min(0.1), Validators.pattern('^[0-9]*\.?[0-9]+$')]]
       })

@@ -15,46 +15,45 @@
       </ng-template>
       <ng-template pTemplate="body" let-order>
         <tr>
-          <td>
+          <td (click)="onToggleClick($event, order)"> <!-- Separate click handler for toggle cell -->
             <button type="button" 
                     pButton 
                     pRipple 
-                    class="p-button-text p-button-rounded p-button-plain"
-                    (click)="toggleRow(order)">
+                    class="p-button-text p-button-rounded p-button-plain">
               <i [class]="expandedRows[order.id] ? 'pi pi-chevron-down' : 'pi pi-chevron-left'"></i>
             </button>
           </td>
-          <td>{{order.id}}</td>
-          <td>{{order.supplier}}</td>
-          <td>{{order.orderDate | date}}</td>
-          <td>{{order.totalAmount | currency:'SAR'}}</td>
-          <td>
+          <td (click)="viewDetails(order)">{{order.purchase_number}}</td>
+          <td (click)="viewDetails(order)">{{order.supplier.name}}</td>
+          <td (click)="viewDetails(order)">{{order.created_at | date}}</td>
+          <td (click)="viewDetails(order)">{{order.total_cost | arabicCurrency}}</td>
+          <td (click)="viewDetails(order)">
             <p-tag [severity]="order.status === 'accepted' ? 'success' : 
-            order.status === 'declined' ? 'danger' : 'warn'"
-            [value]="getStatusInArabic(order.status)">
+                              order.status === 'declined' ? 'danger' : 'warn'"
+                   [value]="order.status_display">
             </p-tag>
           </td>
         </tr>
         <tr *ngIf="expandedRows[order.id]">
-          <td colspan="7">
+          <td colspan="6">
             <div class="p-3">
-              <p-table [value]="order.items" styleClass="rtl-table">
+              <p-table [value]="order.raw_materials" styleClass="rtl-table">
                 <ng-template pTemplate="header">
                   <tr>
                     <th>اسم المنتج</th>
                     <th>الوحدة</th>
                     <th>الكمية</th>
                     <th>سعر الوحدة</th>
-                    <th>المجموع</th>
+                    <th>الحالة</th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
                   <tr>
-                    <td>{{item.itemName}}</td>
-                    <td>{{item.unit}}</td>
+                    <td>{{item.raw_material.name}}</td>
+                    <td>{{getUnitLabel(item.unit)}}</td>
                     <td>{{item.quantity}}</td>
-                    <td>{{item.unitPrice | currency:'SAR'}}</td>
-                    <td>{{item.total | currency:'SAR'}}</td>
+                    <td>{{item.unit_price | arabicCurrency:'ج.م'}}</td>
+                    <td>{{item.delivery_status_display}}</td>
                   </tr>
                 </ng-template>
               </p-table>

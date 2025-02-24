@@ -60,15 +60,15 @@ export class MaterialOrderService {
       receiptNumber: `RCV-${purchaseOrder.id}-${Date.now()}`,
       receivedDate: new Date(),
       supplier: purchaseOrder.supplier,
-      items: purchaseOrder.items.map(item => ({
-        itemName: item.itemName,
-        unit: item.unit,
-        quantity: item.quantity,
-        receivedQuantity: item.quantity,
-        unitPrice: item.unitPrice,
-        total: item.total
-      })),
-      totalAmount: purchaseOrder.totalAmount,
+      // items: purchaseOrder.items.map(item => ({
+      //   itemName: item.itemName,
+      //   unit: item.unit,
+      //   quantity: item.quantity,
+      //   receivedQuantity: item.quantity,
+      //   unitPrice: item.unitPrice,
+      //   total: item.total
+      // })),
+      // totalAmount: purchaseOrder.totalAmount,
       status: 'received'
     };
 

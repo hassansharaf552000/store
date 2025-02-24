@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 
@@ -13,12 +15,17 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ToastModule
   ],
   exports: [
     SidebarComponent,
     NavbarComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ]
 })
 export class SharedModule { }

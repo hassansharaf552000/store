@@ -169,24 +169,4 @@
   }
 }
 
-::ng-deep {
-  .p-toast {
-    direction: rtl;
-    
-    .p-toast-message {
-      border: none;
-      box-shadow: var(--shadow-sm);
-      border-radius: var(--border-radius);
 
-      &.p-toast-message-success {
-        background: var(--success-color);
-        color: white;
-      }
-      
-      &.p-toast-message-error {
-        background: var(--danger-color);
-        color: white;
-      }
-    }
-  }
-}

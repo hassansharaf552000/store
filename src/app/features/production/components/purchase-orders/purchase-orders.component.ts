@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PurchaseOrder } from '../../../purchase/models/purchase-order.interface';
-import { PurchaseOrderService } from '../../../purchase/services/purchase-order.service';
+import { PurchaseService } from '../../../purchase/services/purchase.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { MaterialOrderService } from '../../services/material-order.service';
@@ -12,12 +12,12 @@ import { MaterialOrderService } from '../../services/material-order.service';
   templateUrl: './purchase-orders.component.html',
   styleUrl: './purchase-orders.component.scss'
 })
-export class PurchaseOrdersComponent {
+export class PurchaseOrdersComponent implements OnInit {
   orders: PurchaseOrder[] = [];
   expandedRows: { [key: number]: boolean } = {};
 
   constructor(
-    private purchaseOrderService: PurchaseOrderService,
+    private purchaseService: PurchaseService,
     private materialOrderService: MaterialOrderService,
     private messageService: MessageService,
     private router: Router
@@ -28,9 +28,9 @@ export class PurchaseOrdersComponent {
   }
 
   loadOrders() {
-    this.purchaseOrderService.getOrders().subscribe(orders => {
-      this.orders = orders;
-      console.log('Loaded orders:', this.orders);
+    this.purchaseService.getOrders().subscribe(response => {
+      this.orders = response.results;
+      console.log('Loaded orders:', response);
     });
   }
 
@@ -39,8 +39,13 @@ export class PurchaseOrdersComponent {
     console.log('Toggled row:', order.id, 'Expanded state:', this.expandedRows);
   }
 
+  onToggleClick(event: Event, order: PurchaseOrder) {
+    event.stopPropagation(); // Prevent event from bubbling up to parent tr
+    this.toggleRow(order);
+  }
+
   onAccept(order: PurchaseOrder) {
-    this.purchaseOrderService.updateOrderStatus(order.id, 'accepted').subscribe(() => {
+    this.purchaseService.updateOrderStatus(order.id, 'accepted').subscribe(() => {
       this.materialOrderService.createFromPurchaseOrder(order).subscribe(
         (materialOrder) => {
           this.messageService.add({
@@ -63,7 +68,7 @@ export class PurchaseOrdersComponent {
   }
 
   onDecline(order: PurchaseOrder) {
-    this.purchaseOrderService.updateOrderStatus(order.id, 'declined').subscribe(() => {
+    this.purchaseService.updateOrderStatus(order.id, 'declined').subscribe(() => {
       this.loadOrders();
     });
   }

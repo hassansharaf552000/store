@@ -1,0 +1,61 @@
+<div class="login-container container-fluid vh-100" dir="rtl">
+  <div class="row h-100 align-items-center justify-content-center">
+    <div class="col-11 col-md-8 col-lg-6">
+      <div class="card login-card">
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <img src="../../../../assets/images/street-wear-logo.png" alt="Logo" class="login-logo mb-4">
+            <h2 class="login-title">تسجيل الدخول</h2>
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+            <div class="mb-4">
+              <label for="username" class="form-label">اسم المستخدم</label>
+              <input
+                type="text"
+                id="username"
+                formControlName="username"
+                class="form-control"
+                [ngClass]="{'is-invalid': loginForm.get('username')?.invalid && loginForm.get('username')?.touched}"
+                placeholder="ادخل اسم المستخدم"
+                autocomplete="username"
+              >
+              <div class="invalid-feedback" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                {{getFieldError('username')}}
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <label for="password" class="form-label">كلمة المرور</label>
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                class="form-control"
+                [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+                placeholder="ادخل كلمة المرور"
+                autocomplete="current-password"
+              >
+              <div class="invalid-feedback" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                {{getFieldError('password')}}
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                [disabled]="loginForm.invalid || loading"
+              >
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                <span>{{ loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول' }}</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-center"></p-toast>

@@ -60,9 +60,12 @@
   --navbar-height: 70px;
   --sidebar-width: 170px;
   --container-padding: 1rem;
+
+  // Z-index
+  --toast-z-index: 9999;
+  --dialog-z-index: 9000;
+  --navbar-z-index: 1000;
 }
-
-
 
 @mixin flex-between {
   display: flex;
@@ -82,6 +85,14 @@
 }
 
 // Global Styles
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -109,7 +120,7 @@ body {
 .bg-primary { background-color: var(--primary-color) !important; }
 .bg-secondary { background-color: var(--secondary-color) !important; }
 .bg-success { background-color: var(--success-color) !important; }
-.bg-danger { background-color: var(--danger-color) !important; }
+.bg-danger { background-color: var (--danger-color) !important; }
 .bg-warning { background-color: var(--warning-color) !important; }
 .bg-info { background-color: var(--info-color) !important; }
 
@@ -219,3 +230,69 @@ $breakpoints: (
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+// Toast styling
+.p-toast {
+  z-index: 9999 !important;
+}
+
+.p-toast-message {
+  z-index: 9999 !important;
+}
+
+// Toast Global Styles
+.p-toast {
+  direction: rtl;
+  z-index: var(--toast-z-index);
+  
+  .p-toast-message {
+    border: none !important;
+    box-shadow: var(--shadow-sm) !important;
+    border-radius: var(--border-radius) !important;
+    z-index: var(--toast-z-index);
+
+    &.p-toast-message-success {
+      background: var(--success-color) !important;
+      color: white !important;
+
+      .p-toast-message-icon,
+      .p-toast-message-summary,
+      .p-toast-message-detail {
+        color: white !important;
+      }
+    }
+    
+    &.p-toast-message-error {
+      background: var(--danger-color) !important;
+      color: white !important;
+
+      .p-toast-message-icon,
+      .p-toast-message-summary,
+      .p-toast-message-detail {
+        color: white !important;
+      }
+    }
+
+    .p-toast-message-content {
+      padding: 1.25rem !important;
+
+      .p-toast-message-text {
+        .p-toast-summary {
+          font-size: 1.2rem !important;
+          font-weight: 600 !important;
+          margin-bottom: 0.25rem !important;
+        }
+
+        .p-toast-detail {
+          font-size: 1.2rem !important;
+          line-height: 1.5 !important;
+        }
+      }
+    }
+
+    .p-toast-message-close-icon {
+      color: white !important;
+    }
+  }
+}
+

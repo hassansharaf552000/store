@@ -213,6 +213,20 @@
             background: var(--gray-200);
           }
         }
+
+        .p-datatable-tbody > tr {
+          > td {
+            cursor: pointer; // Add pointer cursor to indicate clickable cells
+            
+            &:first-child { // Style for toggle button cell
+              cursor: default; // Remove pointer cursor from toggle cell
+              
+              .p-button {
+                cursor: pointer; // Restore pointer cursor for button
+              }
+            }
+          }
+        }
   
         .p-paginator {
           background: transparent;
@@ -433,36 +447,6 @@
   
           &:hover {
             background: var(--gray-200);
-          }
-        }
-  
-        .p-paginator {
-          background: transparent;
-          padding: 1rem;
-          
-          .p-paginator-current,
-          .p-paginator-rpp-label {
-            color: var(--primary-color);
-          }
-          
-          .p-paginator-page,
-          .p-paginator-next,
-          .p-paginator-last,
-          .p-paginator-first,
-          .p-paginator-prev {
-            color: var(--primary-color);
-            border: 1px solid var(--gray-300);
-            
-            &.p-highlight {
-              background: var(--secondary-color);
-              color: var(--light-color);
-              border-color: var(--secondary-color);
-            }
-            
-            &:not(.p-disabled):hover {
-              background: var(--gray-200);
-              border-color: var(--gray-400);
-            }
           }
         }
 

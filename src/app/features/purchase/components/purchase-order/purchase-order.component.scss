@@ -577,6 +577,87 @@
         }
       }
     }
+
+
+    .p-dropdown-panel {
+      z-index: 1000;  // Ensure dropdown appears above table
+    }
+
+    .p-dropdown {
+      width: 100% !important;
+      
+      .p-dropdown-panel {
+        width: 150px !important;
+        min-width: 100% !important;
+        
+        .p-dropdown-items {
+          padding: 0;
+          
+          .p-dropdown-item {
+            white-space: normal;
+            word-wrap: break-word;
+          }
+        }
+      }
+    }
+  
+    // Fix for table cell dropdowns
+    .p-datatable {
+      .p-datatable-tbody {
+        td {
+          .p-dropdown {
+            width: 100% !important;
+            
+            .p-dropdown-panel {
+              min-width: 200px !important; // Adjust this value as needed
+            }
+          }
+        }
+      }
+    }
+
+    // Override dropdown panel width
+    .p-dropdown {
+      width: 100% !important;
+      
+      .p-dropdown-label {
+        width: 100%;
+      }
+    }
+  
+    .p-dropdown-panel {
+      width: auto !important;
+      
+      .p-dropdown-items-wrapper {
+        width: 100%;
+      }
+      
+      .p-dropdown-items {
+        width: 100%;
+        
+        .p-dropdown-item {
+          width: 100%;
+          white-space: normal;
+          word-wrap: break-word;
+        }
+      }
+    }
+  
+    // Special handling for table dropdowns
+    .p-datatable {
+      .p-datatable-tbody {
+        td {
+          .p-dropdown {
+            width: 100% !important;
+            
+            & + .p-dropdown-panel {
+              min-width: 250px !important;  // Increased minimum width
+              width: fit-content !important;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -604,6 +685,31 @@ button {
         background: darken(#e74c3c, 10%);
       }
     }
+  }
+}
+
+.standard-select {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  
+  &:hover {
+    border-color: #2196F3;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 

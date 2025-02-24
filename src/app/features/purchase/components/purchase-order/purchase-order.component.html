@@ -7,7 +7,14 @@
   
       <div class="p-field">
         <label for="supplier">المورد</label>
-        <input pInputText id="supplier" type="text" formControlName="supplier" placeholder="أدخل اسم المورد"/>
+        <p-dropdown id="supplier" 
+                    [options]="suppliers" 
+                    formControlName="supplier" 
+                    placeholder="اختر المورد"
+                    [filter]="true"
+                    filterBy="label"
+                    [loading]="loading"
+                    ></p-dropdown>
         <small *ngIf="purchaseOrderForm.get('supplier')?.invalid && purchaseOrderForm.get('supplier')?.touched" class="p-error">
           المورد مطلوب
         </small>
@@ -47,8 +54,15 @@
                 مطلوب
               </small>
             </td>
-            <td style="min-width: 100px;">
-              <input pInputText type="text" formControlName="unit" placeholder="مثال: كجم، قطعة"/>
+            <td style="min-width: 150px;">
+              <select formControlName="unit" 
+                      class="standard-select"
+                      [attr.disabled]="loading ? '' : null">
+                <option value="" selected disabled>اختر الوحدة</option>
+                <option *ngFor="let unit of units" [value]="unit.value">
+                  {{unit.label}}
+                </option>
+              </select>
               <small class="p-error" *ngIf="item.get('unit')?.invalid && item.get('unit')?.touched">
                 مطلوب
               </small>

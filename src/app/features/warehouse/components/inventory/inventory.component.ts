@@ -4,13 +4,14 @@ import { InventoryService } from '../../services/inventory.service';
 import { RawMaterial, MaterialUnitLabels } from '../../models/raw-material.model';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-inventory',
   standalone: false,
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService, DatePipe]
 })
 export class InventoryComponent implements OnInit {
   inventoryItems: RawMaterial[] = [];
@@ -28,7 +29,8 @@ export class InventoryComponent implements OnInit {
   constructor(
     private inventoryService: InventoryService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -88,6 +90,10 @@ export class InventoryComponent implements OnInit {
     return unit ? MaterialUnitLabels.get(unit) || '-' : '-';
   }
 
+  formatDate(date: string | Date): string {
+    if (!date) return '-';
+    return this.datePipe.transform(date, 'dd/MM/yyyy hh:mm a') || '-';
+  }
 
   onEdit(id: number): void {
     this.router.navigate(['/warehouse/inventory/add', id]);

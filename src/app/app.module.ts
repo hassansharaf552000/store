@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { LayoutsModule } from './layouts/layouts.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +24,8 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
     AppRoutingModule,
     SharedModule,
     ChartModule,
-    ReportingModule
-    
+    ReportingModule,
+    LayoutsModule
   ],
   providers: [
     provideAnimationsAsync(),

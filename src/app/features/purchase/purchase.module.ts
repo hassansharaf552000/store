@@ -17,14 +17,18 @@ import { CalendarModule } from 'primeng/calendar';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
+import { ArabicCurrencyPipe } from '../../shared/pipes/arabic-currency.pipe';
+import { PurchaseDetailsComponent } from './components/purchase-details/purchase-details.component';
 
 @NgModule({
   declarations: [
     PurchaseComponent,
-    PurchaseOrderComponent,    
+    PurchaseOrderComponent,
+    PurchaseDetailsComponent
   ],
   imports: [
     CommonModule,
+    PurchaseRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     PurchaseRoutingModule,
@@ -39,8 +43,11 @@ import { DialogModule } from 'primeng/dialog';
     TagModule,
     RippleModule,
     TooltipModule,
-    DialogModule
+    DialogModule,
+    ArabicCurrencyPipe
   ],
-  providers: [MessageService]
+  providers: [
+    MessageService
+  ]
 })
 export class PurchaseModule { }
