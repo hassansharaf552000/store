@@ -16,11 +16,11 @@ export class WarehouseComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.isSubRoute = event.url !== '/warehouse';
+      this.isSubRoute = event.url !== '/main/warehouse';
     });
   }
 
   navigateTo(route: string) {
-    this.router.navigate(['/warehouse', route]);
+    this.router.navigate(['/main/warehouse', route]);
   }
 }

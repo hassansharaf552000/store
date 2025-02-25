@@ -63,7 +63,7 @@ export class PurchaseComponent {
   }
 
   navigateToCreateOrder() {
-    this.router.navigate(['purchase/purchase-order']);
+    this.router.navigate(['/main/purchase/purchase-order']);
   }
 
   getUnitLabel(unitId: number): string {
@@ -71,7 +71,7 @@ export class PurchaseComponent {
   }
 
   viewDetails(order: PurchaseOrder) {
-    this.router.navigate(['/purchase/details', order.id]);
+    this.router.navigate(['/main/purchase/details', order.id]);
   }
 
   onToggleClick(event: Event, order: PurchaseOrder) {

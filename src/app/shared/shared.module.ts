@@ -6,23 +6,26 @@ import { MessageService } from 'primeng/api';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 
 @NgModule({
   declarations: [
     SidebarComponent,
     NavbarComponent,
-    SpinnerComponent
+    SpinnerComponent,
+   NotfoundComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    ToastModule
+    ToastModule,
   ],
   exports: [
     SidebarComponent,
     NavbarComponent,
     SpinnerComponent,
-    ToastModule
+    ToastModule,
+    NotfoundComponent
   ],
   providers: [
     MessageService

@@ -96,6 +96,6 @@ export class InventoryComponent implements OnInit {
   }
 
   onEdit(id: number): void {
-    this.router.navigate(['/warehouse/inventory/add', id]);
+    this.router.navigate(['/main/warehouse/inventory/add', id]);
   }
 }

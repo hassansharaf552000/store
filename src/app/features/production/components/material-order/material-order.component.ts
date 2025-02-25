@@ -31,6 +31,6 @@ export class MaterialOrderComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/production/purchase-orders']);
+    this.router.navigate(['/main/production/purchase-orders']);
   }
 }

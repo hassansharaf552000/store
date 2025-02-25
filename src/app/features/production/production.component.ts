@@ -11,10 +11,10 @@ export class ProductionComponent {
   constructor(private router: Router) {}
 
   navigateToPurchaseOrders() {
-    this.router.navigate(['/production/purchase-orders']);
+    this.router.navigate(['/main/production/purchase-orders']);
   }
 
   navigateToMaterialOrders() {
-    this.router.navigate(['/production/material-orders']);
+    this.router.navigate(['/main/production/material-orders']);
   }
 }

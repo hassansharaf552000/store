@@ -62,7 +62,7 @@ export class PurchaseDetailsComponent implements OnInit {
             summary: 'نجاح',
             detail: 'تم إلغاء الطلب بنجاح'
           });
-          this.router.navigate(['/purchase']);
+          this.router.navigate(['/main/purchase']);
         },
         error: (error) => {
           this.messageService.add({
@@ -93,6 +93,6 @@ export class PurchaseDetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/purchase']);
+    this.router.navigate(['/main/purchase']);
   }
 }

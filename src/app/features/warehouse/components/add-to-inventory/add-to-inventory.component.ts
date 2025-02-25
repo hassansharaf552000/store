@@ -83,7 +83,7 @@ export class AddToInventoryComponent implements OnInit {
             summary: 'تم بنجاح',
             detail: this.isEditMode ? 'تم تحديث المادة الخام' : 'تم إضافة المادة الخام'
           });
-          this.router.navigate(['/warehouse/inventory']);
+          this.router.navigate(['/main/warehouse/inventory']);
         },
         error: (error) => {
           this.messageService.add({
@@ -103,6 +103,6 @@ export class AddToInventoryComponent implements OnInit {
   }
 
   onBack(): void {
-    this.router.navigate(['/warehouse/inventory']);
+    this.router.navigate(['/main/warehouse/inventory']);
   }
 }

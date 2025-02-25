@@ -140,7 +140,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/purchase']);
+    this.router.navigate(['/main/purchase']);
   }
 }
 

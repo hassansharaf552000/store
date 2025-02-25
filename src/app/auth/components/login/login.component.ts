@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
           // localStorage.setItem('token', response.token);
           // localStorage.setItem('user', JSON.stringify(response.user));
           this.loading = false;
-          this.router.navigate(['/']);
+          this.router.navigate(['/main']);
         },
         error: (error) => {
           this.messageService.add({

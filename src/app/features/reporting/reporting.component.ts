@@ -20,6 +20,6 @@ export class ReportingComponent {
   };
 
   navigateToPurchaseReports() {
-    this.router.navigate(['/reporting/purchase-reports']);
+    this.router.navigate(['/main/reporting/purchase-reports']);
   }
 }

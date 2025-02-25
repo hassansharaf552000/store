@@ -74,11 +74,11 @@ export class PurchaseOrdersComponent implements OnInit {
   }
 
   navigateToCreateOrder() {
-    this.router.navigate(['purchase/purchase-order']);
+    this.router.navigate(['/main/purchase/purchase-order']);
   }
 
   goBack() {
-    this.router.navigate(['/production']);
+    this.router.navigate(['/main/production']);
   }
 }
 

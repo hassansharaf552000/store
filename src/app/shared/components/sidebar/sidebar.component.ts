@@ -8,15 +8,15 @@ interface RouteInfo {
   class: string;
 }
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', titleAr: 'لوحة التحكم', icon: 'home', class: '' }, // Changed to 'home' icon
-  { path: '/purchase', title: 'Purchase', titleAr: 'الشراء', icon: 'shopping-cart', class: '' },
-  { path: '/production', title: 'Production', titleAr: 'الإنتاج', icon: 'cog', class: '' },
-  { path: '/warehouse', title: 'Warehouse', titleAr: 'المستودع', icon: 'box', class: '' },
-  { path: '/accounting', title: 'Accounting', titleAr: 'المحاسبة', icon: 'wallet', class: '' },
-  { path: '/orders', title: 'Orders', titleAr: 'الطلبات', icon: 'shopping-bag', class: '' },
-  { path: '/reporting', title: 'Reporting', titleAr: 'التقارير', icon: 'chart-bar', class: '' },
-  { path: '/user-profile', title: 'Profile', titleAr: 'الملف الشخصي', icon: 'user', class: '' },  // Changed path
-  { path: '/user-settings', title: 'Settings', titleAr: 'الإعدادات', icon: 'cog', class: '' }  // Changed path
+  { path: '/main/dashboard', title: 'Dashboard', titleAr: 'لوحة التحكم', icon: 'home', class: '' }, // Changed to 'home' icon
+  { path: '/main//purchase', title: 'Purchase', titleAr: 'الشراء', icon: 'shopping-cart', class: '' },
+  { path: '/main//production', title: 'Production', titleAr: 'الإنتاج', icon: 'cog', class: '' },
+  { path: '/main//warehouse', title: 'Warehouse', titleAr: 'المستودع', icon: 'box', class: '' },
+  { path: '/main//accounting', title: 'Accounting', titleAr: 'المحاسبة', icon: 'wallet', class: '' },
+  { path: '/main//orders', title: 'Orders', titleAr: 'الطلبات', icon: 'shopping-bag', class: '' },
+  { path: '/main//reporting', title: 'Reporting', titleAr: 'التقارير', icon: 'chart-bar', class: '' },
+  { path: '/main//user-profile', title: 'Profile', titleAr: 'الملف الشخصي', icon: 'user', class: '' },  // Changed path
+  { path: '/main//user-settings', title: 'Settings', titleAr: 'الإعدادات', icon: 'cog', class: '' }  // Changed path
 ];
 
 @Component({

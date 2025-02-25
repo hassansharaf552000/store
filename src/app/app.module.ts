@@ -13,10 +13,16 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { LayoutsModule } from './layouts/layouts.module';
+import { ProfilleComponent } from './features/profille/profille.component';
+import { SettingsComponent } from './features/settings/settings.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProfilleComponent,
+    SettingsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

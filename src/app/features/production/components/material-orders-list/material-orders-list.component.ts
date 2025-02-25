@@ -33,10 +33,10 @@ export class MaterialOrdersListComponent implements OnInit {
   }
 
   viewReceipt(order: any) {
-    this.router.navigate(['/production/material-order', order.id]);
+    this.router.navigate(['/main/production/material-order', order.id]);
   }
 
   goBack() {
-    this.router.navigate(['/production']);
+    this.router.navigate(['/main/production']);
   }
 }
