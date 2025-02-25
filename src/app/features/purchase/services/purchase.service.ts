@@ -25,7 +25,10 @@ export class PurchaseService {
   }
 
   updateOrderStatus(id: number, status: string): Observable<PurchaseOrder> {
-    return this.http.patch<PurchaseOrder>(`${this.apiUrl}/${id}`, { status });
+    const updateData = {
+      status: status
+    };
+    return this.http.patch<PurchaseOrder>(`${this.apiUrl}/${id}`, updateData);
   }
 
   deleteOrder(id: number): Observable<void> {

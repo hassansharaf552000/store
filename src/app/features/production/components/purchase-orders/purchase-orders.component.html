@@ -35,8 +35,8 @@
         <td>{{order.created_at | date}}</td>
         <td>{{order.total_cost | currency:'USD'}}</td>
         <td>
-          <p-tag [severity]="order.status === 'accepted' ? 'success' : 
-                            order.status === 'declined' ? 'danger' : 'warn'"
+          <p-tag [severity]="order.status === 'approved' ? 'success' : 
+                            order.status === 'rejected' ? 'danger' : 'warn'"
                  [value]="order.status_display">
           </p-tag>
         </td>
@@ -46,14 +46,14 @@
                     icon="pi pi-check" 
                     class="p-button-success p-button-sm" 
                     (click)="onAccept(order)"
-                    [disabled]="order.status === 'accepted' || order.status === 'declined'"
+                    [disabled]="order.status === 'approved' || order.status === 'rejected'"
                     pTooltip="قبول">
             </button>
             <button pButton 
                     icon="pi pi-times" 
                     class="p-button-danger p-button-sm" 
                     (click)="onDecline(order)"
-                    [disabled]="order.status === 'accepted' || order.status === 'declined'"
+                    [disabled]="order.status === 'approved' || order.status === 'rejected'"
                     pTooltip="رفض">
             </button>
           </div>

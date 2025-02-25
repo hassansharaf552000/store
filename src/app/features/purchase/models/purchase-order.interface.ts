@@ -1,19 +1,16 @@
 export interface Supplier {
-  id: number;
   name: string;
-  contact_info: string | null;
-  email: string | null;
-  phone: string | null;
-  address: string;
-  created_at: string;
+  contact_info?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
 }
 
-export interface User {
-  id: number;
+export interface UserMinimal {
   username: string;
-  email: string;
-  first_name: string;
-  last_name: string;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
 }
 
 export interface RawMaterial {
@@ -40,19 +37,13 @@ export interface PurchaseOrder {
   id: number;
   purchase_number: string;
   purpose: string;
-  status: string;
-  status_display: string;
+  status: 'pending' | 'approved' | 'rejected ';
   supplier: Supplier;
-  created_by: User;
-  created_at: string;
-  delivery_date: string | null;
-  total_cost: string;
-  raw_materials: PurchaseOrderItem[];
+  created_by: UserMinimal;
+  delivery_date?: string;
+  total_cost?: string;
 }
 
-export interface PurchaseResponse {  // Renamed from PurchaseOrderResponse
-  count: number;
-  next: string | null;
-  previous: string | null;
+export interface PurchaseResponse {
   results: PurchaseOrder[];
 }

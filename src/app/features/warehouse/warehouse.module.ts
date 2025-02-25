@@ -14,12 +14,14 @@ import { WarehouseRoutingModule } from './warehouse-routing.module';
 import { WarehouseComponent } from './warehouse.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { AddToInventoryComponent } from './components/add-to-inventory/add-to-inventory.component';
+import { EntryRawMaterialsComponent } from './components/entry-raw-materials/entry-raw-materials.component';
 
 @NgModule({
   declarations: [
     WarehouseComponent,
     InventoryComponent,
-    AddToInventoryComponent
+    AddToInventoryComponent,
+    EntryRawMaterialsComponent
   ],
   imports: [
     CommonModule,
