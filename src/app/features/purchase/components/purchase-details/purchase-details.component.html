@@ -32,7 +32,7 @@
 
     <div class="detail-item">
       <label>منشئ الطلب</label>
-      <p>{{purchase.created_by}}</p>
+      <p>{{purchase.created_by.username}}</p>
     </div>
 
     <div class="detail-item">
@@ -57,7 +57,7 @@
       <ng-template pTemplate="body" let-item>
         <tr>
           <td class="material-name">{{item.raw_material.name}}</td>
-          <td class="unit text-dark">{{getUnitLabel(item.unit)}}</td>
+          <td class="unit">{{getUnitLabel(item.unit)}}</td>
           <td class="quantity">{{item.quantity}}</td>
           <td class="price">{{item.unit_price | arabicCurrency}}</td>
           <td class="total-price">{{calculateItemTotal(item) | arabicCurrency}}</td>
