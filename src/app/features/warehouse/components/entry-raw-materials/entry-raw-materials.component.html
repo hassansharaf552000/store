@@ -14,11 +14,11 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 3rem"></th>
-        <th>رقم الشراء</th>
-        <th>المورد</th>
-        <th>تاريخ التسليم</th>
-        <th>التكلفة الإجمالية</th>
-        <th>الحالة</th>
+        <th class="text-center">رقم الشراء</th>
+        <th class="text-center">المورد</th>
+        <th class="text-center">تاريخ التسليم</th>
+        <th class="text-center">التكلفة الإجمالية</th>
+        <th class="text-center">الحالة</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-order>
@@ -32,11 +32,11 @@
             <i [class]="expandedRows[order.id] ? 'pi pi-chevron-down' : 'pi pi-chevron-left'"></i>
           </button>
         </td>
-        <td>{{order.purchase_number}}</td>
-        <td>{{order.supplier.name}}</td>
-        <td>{{order.delivery_date | date}}</td>
-        <td>{{order.total_cost}}</td>
-        <td>
+        <td class="text-center">{{order.purchase_number}}</td>
+        <td class="text-center">{{order.supplier.name}}</td>
+        <td class="text-center">{{order.delivery_date | date}}</td>
+        <td class="text-center">{{order.total_cost}}</td>
+        <td class="text-center">
           <p-tag [severity]="getStatusSeverity(order.status)"
                  [value]="order.status_display">
           </p-tag>
@@ -48,24 +48,32 @@
             <p-table [value]="order.raw_materials" styleClass="rtl-table">
               <ng-template pTemplate="header">
                 <tr>
-                  <th>اختيار</th>
-                  <th>اسم المادة</th>
-                  <th>الكمية</th>
-                  <th>الوحدة</th>
+                  <th class="text-center">اختيار</th>
+                  <th class="text-center">اسم المادة</th>
+                  <th class="text-center">الكمية</th>
+                  <!-- <th>الوحدة</th> -->
+                  <th class="text-center">سعر الوحدة</th>
+                  <th class="text-center">حالة التسليم</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-material>
                 <tr>
-                  <td>
+                  <td class="text-center">
                     <p-checkbox 
                         [ngModel]="isSelected(material)"
                         (onChange)="toggleSelection(material)"
                         [binary]="true">
                     </p-checkbox>
                   </td>
-                  <td>{{material.raw_material.name}}</td>
-                  <td>{{material.quantity}}</td>
-                  <td>{{material.raw_material.unit_count}}</td>
+                  <td class="text-center">{{material.raw_material.name}}</td>
+                  <td class="text-center">{{material.quantity}}</td>
+                  <!-- <td>{{material.raw_material.unit_count}}</td> -->
+                  <td class="text-center">{{material.unit_price}}</td>
+                  <td class="text-center">
+                    <p-tag [severity]="getDeliveryStatusSeverity(material.delivery_status)"
+                          [value]="material.delivery_status_display">
+                    </p-tag>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>

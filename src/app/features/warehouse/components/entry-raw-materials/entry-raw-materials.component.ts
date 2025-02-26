@@ -62,6 +62,19 @@ export class EntryRawMaterialsComponent implements OnInit {
     }
   }
 
+  getDeliveryStatusSeverity(status: string): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined {
+    switch (status) {
+      case 'delivered':
+        return 'success';
+      case 'pending':
+        return 'warn';
+      case 'cancelled':
+        return 'danger';
+      default:
+        return 'info';
+    }
+  }
+
   ngOnInit() {
     this.loadMaterialOrders();
     this.materialOrders = this.materialOrders.map(order => ({
@@ -169,20 +182,20 @@ export class EntryRawMaterialsComponent implements OnInit {
           orderMaterials: Array.from(orderMaterials.entries())
         });
         
-        if (error.type === 'ALREADY_DELIVERED') {
+        if (error?.error === 'لم يتم العثور على مواد لم يتم تسليمها مع المعرفات المقدمة') {
           this.messageService.add({
             severity: 'warn',
             summary: 'تنبيه',
-            detail: error.message,
+            detail: 'تم اضافة هذا الخام الى فاتورة سابقة لا يمكن الاضافة مره اخرى',
             life: 5000
           });
           this.selectedMaterials.clear();
           this.loadMaterialOrders();
         } else if (error.type === 'API_ERROR') {
           this.messageService.add({
-            severity: 'error',
+            severity: 'warn',
             summary: 'خطأ في الخادم',
-            detail: 'حدث خطأ أثناء محاولة تحديث حالة المواد. الرجاء المحاولة مرة أخرى'
+            detail: 'تم اضافة هذا الخام الى فاتورة سابقة لا يمكن الاضافة مره اخرى',
           });
         } else {
           this.messageService.add({
