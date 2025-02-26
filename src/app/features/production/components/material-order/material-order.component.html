@@ -8,45 +8,96 @@
     <h2>استلام المواد</h2>
   </div>
 
-  <div class="receipt-details" *ngIf="materialOrder">
-    <div class="p-grid">
-      <div class="p-col-6">
-        <p><strong>رقم الإيصال:</strong> {{materialOrder.receiptNumber}}</p>
-        <p><strong>رقم أمر الشراء:</strong> {{materialOrder.purchaseOrderId}}</p>
-        <p><strong>المورد:</strong> {{materialOrder.supplier}}</p>
+
+  <div class="orders-list" *ngIf="!loading && !materialOrder">
+    <p-table [value]="materialOrder" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>رقم أمر الشراء</th>
+          <th>المورد</th>
+          <th>تاريخ التسليم</th>
+          <th>التكلفة الإجمالية</th>
+          <th>الحالة</th>
+          <th>الإجراءات</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td>{{order.purchase_number}}</td>
+          <td>{{order.supplier?.name}}</td>
+          <td>{{order.delivery_date | date}}</td>
+          <td>{{order.total_cost | currency:'SAR'}}</td>
+          <td>
+            <p-tag [severity]="'success'" value="{{order.status_display}}"></p-tag>
+          </td>
+          <td>
+            <button pButton icon="pi pi-eye" 
+                    class="p-button-rounded p-button-info"
+                    (click)="viewOrderDetails(order.id)">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" class="text-center">لا توجد طلبات معتمدة</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Order Details View -->
+  <div class="order-details" *ngIf="!loading && materialOrder">
+    <div class="grid">
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label>رقم الطلب</label>
+          <div>{{materialOrder.purchase_number}}</div>
+        </div>
+        <div class="field">
+          <label>المورد</label>
+          <div>{{materialOrder.supplier?.name}}</div>
+        </div>
+        <div class="field">
+          <label>الحالة</label>
+          <p-tag [severity]="'success'" [value]="materialOrder.status_display"></p-tag>
+        </div>
       </div>
-      <div class="p-col-6">
-        <p><strong>التاريخ:</strong> {{materialOrder.receivedDate | date}}</p>
-        <p><strong>الحالة:</strong> 
-          <p-tag [severity]="'success'" value="تم الاستلام"></p-tag>
-        </p>
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label>تاريخ الإنشاء</label>
+          <div>{{materialOrder.created_at | date}}</div>
+        </div>
+        <div class="field">
+          <label>المبلغ الإجمالي</label>
+          <div>{{materialOrder.total_cost | currency:'SAR'}}</div>
+        </div>
       </div>
     </div>
 
-    <div class="items-section">
-      <p-table [value]="materialOrder.items">
+    <div class="materials-table mt-4">
+      <h3>المواد المطلوبة</h3>
+      <p-table [value]="materialOrder.raw_materials">
         <ng-template pTemplate="header">
           <tr>
-            <th>اسم المادة</th>
-            <th>الوحدة</th>
-            <th class="text-right">الكمية</th>
-            <th class="text-right">سعر الوحدة</th>
-            <th class="text-right">المجموع</th>
+            <th>المادة</th>
+            <th>الكمية</th>
+            <th>سعر الوحدة</th>
+            <th>الإجمالي</th>
+            <th>حالة التسليم</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
           <tr>
-            <td>{{item.itemName}}</td>
-            <td>{{item.unit}}</td>
-            <td class="text-right">{{item.quantity}}</td>
-            <td class="text-right">{{item.unitPrice | currency:'SAR'}}</td>
-            <td class="text-right">{{item.total | currency:'SAR'}}</td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="footer">
-          <tr>
-            <td colspan="4" class="text-right"><strong>المبلغ الإجمالي:</strong></td>
-            <td class="text-right"><strong>{{materialOrder.totalAmount | currency:'SAR'}}</strong></td>
+            <td>{{item.raw_material.name}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.unit_price | currency:'SAR'}}</td>
+            <td>{{item.quantity * item.unit_price | currency:'SAR'}}</td>
+            <td>
+              <p-tag [severity]="item.is_delivered ? 'success' : 'warn'"
+                     [value]="item.delivery_status_display">
+              </p-tag>
+            </td>
           </tr>
         </ng-template>
       </p-table>

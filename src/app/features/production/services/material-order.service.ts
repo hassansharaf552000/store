@@ -1,80 +1,70 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { PurchaseOrder } from '../../purchase/models/purchase-order.interface';
+import { Observable, of, throwError } from 'rxjs';
+import { PurchaseOrder, PurchaseResponse } from '../../purchase/models/purchase-order.interface';
+import { environment } from '../../../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MaterialOrderService {
-  private materialOrders: any[] = [];
-  private currentId = 1;
+  private apiUrl = `${environment.apiUrl}/purchases`;
+ 
+  constructor(private http: HttpClient) {}
 
-  constructor() {
-    // Initialize with a sample material order
-    this.materialOrders = [
-      {
-        id: 1,
-        purchaseOrderId: 1,
-        receiptNumber: 'RCV-1-20240120',
-        receivedDate: new Date('2024-01-20'),
-        supplier: 'ABC Manufacturing',
-        items: [
-          {
-            itemName: 'Steel Rods',
-            unit: 'pcs',
-            quantity: 100,
-            receivedQuantity: 100,
-            unitPrice: 25,
-            total: 2500
-          },
-          {
-            itemName: 'Aluminum Sheets',
-            unit: 'sheets',
-            quantity: 50,
-            receivedQuantity: 50,
-            unitPrice: 60,
-            total: 3000
-          }
-        ],
-        totalAmount: 5500,
-        status: 'received'
-      }
-    ];
-    this.currentId = 2; // Set next ID
+  getMaterialOrders(): Observable<PurchaseResponse> {
+    // Get only approved orders by default
+    const params = new HttpParams().set('status', 'approved');
+    console.log('Sending request to:', this.apiUrl);
+    return this.http.get<PurchaseResponse>(this.apiUrl, { params }).pipe(
+      tap({
+        next: (response) => console.log('Raw API Response:', response),
+        error: (error) => console.error('API Error:', error)
+      })
+    );
   }
 
-  getMaterialOrder(id: number): Observable<any> {
-    const order = this.materialOrders.find(o => o.id === +id);
-    console.log('Getting material order:', id, order); // For debugging
-    return of(order!);
+  getOrder(id: number): Observable<PurchaseOrder> {
+    return this.http.get<PurchaseOrder>(`${this.apiUrl}/${id}`);
   }
 
-  getMaterialOrders(): Observable<any[]> {
-    return of(this.materialOrders);
-  }
-
-  createFromPurchaseOrder(purchaseOrder: PurchaseOrder): Observable<any> {
-    const materialOrder: any = {
-      id: this.currentId++,
-      purchaseOrderId: purchaseOrder.id,
-      receiptNumber: `RCV-${purchaseOrder.id}-${Date.now()}`,
-      receivedDate: new Date(),
-      supplier: purchaseOrder.supplier,
-      // items: purchaseOrder.items.map(item => ({
-      //   itemName: item.itemName,
-      //   unit: item.unit,
-      //   quantity: item.quantity,
-      //   receivedQuantity: item.quantity,
-      //   unitPrice: item.unitPrice,
-      //   total: item.total
-      // })),
-      // totalAmount: purchaseOrder.totalAmount,
-      status: 'received'
-    };
-
-    this.materialOrders.push(materialOrder);
-    console.log('Created material order:', materialOrder); // For debugging
-    console.log('Current material orders:', this.materialOrders); // For debugging
-    return of(materialOrder);
+  markMaterialsDelivered(orderId: number, rawMaterialIds: number[]): Observable<any> {
+    const payload = { raw_material_ids: rawMaterialIds };
+    console.log(`Marking materials as delivered for order ${orderId}:`, payload);
+    
+    return this.http.post(`${this.apiUrl}/${orderId}/mark_delivered`, payload).pipe(
+      tap({
+        next: (response) => {
+          console.log(`Success - Order ${orderId}:`, {
+            payload,
+            response
+          });
+        },
+        error: (error) => {
+          console.error(`Error - Order ${orderId}:`, {
+            payload,
+            error,
+            errorMessage: error.error
+          });
+        }
+      }),
+      catchError(error => {
+        if (error.error === "لم يتم العثور على مواد لم يتم تسليمها مع المعرفات المقدمة") {
+          return throwError(() => ({
+            type: 'ALREADY_DELIVERED',
+            message: 'تم تسليم جميع المواد المحددة مسبقاً',
+            orderId,
+            materialIds: rawMaterialIds
+          }));
+        }
+        return throwError(() => ({
+          type: 'API_ERROR',
+          originalError: error,
+          orderId,
+          materialIds: rawMaterialIds
+        }));
+      })
+    );
   }
 }

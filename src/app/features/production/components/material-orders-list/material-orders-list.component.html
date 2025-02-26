@@ -24,13 +24,14 @@
     </ng-template>
     <ng-template pTemplate="body" let-order>
       <tr (click)="viewReceipt(order)" style="cursor: pointer;">
-        <td>{{order.receiptNumber}}</td>
-        <td>{{order.purchaseOrderId}}</td>
-        <td>{{order.supplier}}</td>
-        <td>{{order.receivedDate | date}}</td>
-        <td>{{order.totalAmount | currency:'USD'}}</td>
+        <td>{{order.id}}</td>
+        <td>{{order.purchase_number}}</td>
+        <td>{{order.supplier.name}}</td>
+        <td>{{order.created_at | date}}</td>
+        <td>{{order.total_cost | currency:'USD'}}</td>
         <td>
-          <p-tag severity="success" value="مستلم"></p-tag>
+          <p-tag [severity]="order.status === 'approved' ? 'success' : 'warn'"
+                 [value]="order.status_display"></p-tag>
         </td>
       </tr>
     </ng-template>

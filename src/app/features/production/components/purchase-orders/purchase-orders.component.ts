@@ -52,26 +52,9 @@ export class PurchaseOrdersComponent implements OnInit {
           summary: 'نجاح',
           detail: 'تم تحديث حالة الطلب بنجاح'
         });
-        this.materialOrderService.createFromPurchaseOrder(order).subscribe({
-          next: (materialOrder) => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'نجاح',
-              detail: `تم إنشاء طلب المواد برقم الإيصال: ${materialOrder.receiptNumber}`
-            });
-            this.router.navigate(['/production/material-order', materialOrder.id]);
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'خطأ',
-              detail: 'فشل في إنشاء طلب المواد'
-            });
-          }
-        });
         this.loadOrders();
       },
-      error: (error) => {
+      error: (error: Error) => {
         this.messageService.add({
           severity: 'error',
           summary: 'خطأ',
@@ -91,7 +74,7 @@ export class PurchaseOrdersComponent implements OnInit {
         });
         this.loadOrders();
       },
-      error: (error) => {
+      error: (error: Error) => {
         this.messageService.add({
           severity: 'error',
           summary: 'خطأ',

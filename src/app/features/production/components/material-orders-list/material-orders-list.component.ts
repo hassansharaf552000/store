@@ -21,13 +21,31 @@ export class MaterialOrdersListComponent implements OnInit {
   }
 
   loadMaterialOrders() {
+    console.log('Starting to load material orders...');
     this.materialOrderService.getMaterialOrders().subscribe({
-      next: (orders) => {
-        console.log('Loaded material orders:', orders); // For debugging
-        this.materialOrders = orders;
+      next: (response: any) => {
+        console.log('Raw response:', response);
+        console.log('Response type:', typeof response);
+        console.log('Is array?', Array.isArray(response));
+        
+        if (response && response.results) {
+          console.log('Results found:', response.results);
+          this.materialOrders = response.results;
+        } else {
+          console.log('No results property found in response');
+          this.materialOrders = Array.isArray(response) ? response : [response];
+        }
+        
+        console.log('Final materialOrders:', this.materialOrders);
       },
       error: (error) => {
-        console.error('Error loading material orders:', error);
+        console.error('Error details:', error);
+        if (error.error) {
+          console.error('Server error:', error.error);
+        }
+        if (error.status) {
+          console.error('Status code:', error.status);
+        }
       }
     });
   }

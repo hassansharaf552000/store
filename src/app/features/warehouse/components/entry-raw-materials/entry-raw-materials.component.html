@@ -1,1 +1,77 @@
-<p>entry-raw-materials works!</p>
+<div class="card" dir="rtl">
+  <h2>إدخال المواد الخام</h2>
+  
+  <div class="flex justify-content-end mb-3">
+    <p-button label="تأكيد استلام المواد المحددة" 
+              icon="pi pi-check" 
+              [loading]="isSubmitting"
+              (onClick)="submitSelectedMaterials()"
+              [disabled]="!hasSelectedMaterials()">
+    </p-button>
+  </div>
+  
+  <p-table [value]="materialOrders" [expandedRowKeys]="expandedRows" styleClass="rtl-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem"></th>
+        <th>رقم الشراء</th>
+        <th>المورد</th>
+        <th>تاريخ التسليم</th>
+        <th>التكلفة الإجمالية</th>
+        <th>الحالة</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order>
+      <tr>
+        <td>
+          <button type="button" 
+                  pButton 
+                  pRipple 
+                  class="p-button-text p-button-rounded p-button-plain"
+                  (click)="toggleMaterials(order.id)">
+            <i [class]="expandedRows[order.id] ? 'pi pi-chevron-down' : 'pi pi-chevron-left'"></i>
+          </button>
+        </td>
+        <td>{{order.purchase_number}}</td>
+        <td>{{order.supplier.name}}</td>
+        <td>{{order.delivery_date | date}}</td>
+        <td>{{order.total_cost}}</td>
+        <td>
+          <p-tag [severity]="getStatusSeverity(order.status)"
+                 [value]="order.status_display">
+          </p-tag>
+        </td>
+      </tr>
+      <tr *ngIf="expandedRows[order.id]">
+        <td colspan="6">
+          <div class="p-3">
+            <p-table [value]="order.raw_materials" styleClass="rtl-table">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>اختيار</th>
+                  <th>اسم المادة</th>
+                  <th>الكمية</th>
+                  <th>الوحدة</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-material>
+                <tr>
+                  <td>
+                    <p-checkbox [(ngModel)]="material.selected" 
+                                [binary]="true"
+                                (onChange)="toggleSelection(material.id)">
+                    </p-checkbox>
+                  </td>
+                  <td>{{material.raw_material.name}}</td>
+                  <td>{{material.quantity}}</td>
+                  <td>{{material.raw_material.unit_count}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-toast position="top-right" [preventDuplicates]="true" [style]="{width: '450px'}"></p-toast>

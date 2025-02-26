@@ -1,8 +1,8 @@
-<div class="warehouse-dashboard" *ngIf="!isSubRoute">
+<div class="warehouse-dashboard">
   <h1>إدارة المخزن</h1>
   
   <div class="dashboard-grid">
-    <div class="dashboard-card" (click)="navigateTo('add')">
+    <div class="dashboard-card" (click)="navigateToAddInventory()">
       <p-card>
         <div class="card-content">
           <i class="pi pi-plus-circle"></i>
@@ -12,7 +12,7 @@
       </p-card>
     </div>
 
-    <div class="dashboard-card" (click)="navigateTo('inventory')">
+    <div class="dashboard-card" (click)="navigateToInventoryList()">
       <p-card>
         <div class="card-content">
           <i class="pi pi-list"></i>
@@ -22,7 +22,7 @@
       </p-card>
     </div>
 
-    <div class="dashboard-card" (click)="navigateTo('entry-raw-materials')">
+    <div class="dashboard-card" (click)="navigateToRawMaterialsEntry()">
       <p-card>
         <div class="card-content">
           <i class="pi pi-file"></i>
@@ -32,6 +32,5 @@
       </p-card>
     </div>
   </div>
+  <router-outlet></router-outlet>
 </div>
-
-<router-outlet></router-outlet>
