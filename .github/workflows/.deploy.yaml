@@ -40,12 +40,18 @@ jobs:
           VPS_USER: ${{ vars.VPS_USER }}
           VPS_IP: ${{ vars.VPS_IP }}
         run: |
-          # Create backup of existing deployment
-          ssh $VPS_USER@$VPS_IP "cd /var/www && [ -d angular ] && mv angular angular_backup || true"
+          # Ensure directory exists and set permissions
+          ssh $VPS_USER@$VPS_IP " mkdir -p /var/www/angular &&  chown -R $VPS_USER:$VPS_USER /var/www/angular"
+          
+          # Create backup if exists
+          ssh $VPS_USER@$VPS_IP "if [ -d /var/www/angular ]; then  mv /var/www/angular /var/www/angular_backup; fi"
+          
+          # Create fresh directory
+          ssh $VPS_USER@$VPS_IP " mkdir -p /var/www/angular &&  chown -R $VPS_USER:$VPS_USER /var/www/angular"
           
           # Copy new build to server
           scp -r dist/* $VPS_USER@$VPS_IP:/var/www/angular/
           
-          # Remove backup if copy was successful
-          ssh $VPS_USER@$VPS_IP "rm -rf /var/www/angular_backup"
+          # Set proper permissions and cleanup
+          ssh $VPS_USER@$VPS_IP " chown -R www-data:www-data /var/www/angular &&  rm -rf /var/www/angular_backup"
 
