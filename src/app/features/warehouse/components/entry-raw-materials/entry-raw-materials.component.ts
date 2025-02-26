@@ -26,16 +26,29 @@ export class EntryRawMaterialsComponent implements OnInit {
     this.expandedRows[orderId] = !this.expandedRows[orderId];
   }
 
-  isSelected(materialId: number): boolean {
-    return this.selectedMaterials.has(materialId);
+  isSelected(material: any): boolean {
+    // Handle both direct ID and material object cases
+    const materialId = typeof material === 'number' ? material : material?.raw_material?.id;
+    return materialId ? this.selectedMaterials.has(materialId) : false;
   }
-  toggleSelection(materialId: number): void {
+
+  toggleSelection(material: any): void {
+    // Handle both direct ID and material object cases
+    const materialId = typeof material === 'number' ? material : material?.raw_material?.id;
+    
+    if (!materialId) {
+      console.error('Invalid material:', material);
+      return;
+    }
+
+    console.log('Toggling inner material ID:', materialId);
     if (this.selectedMaterials.has(materialId)) {
       this.selectedMaterials.delete(materialId);
     } else {
       this.selectedMaterials.add(materialId);
     }
   }
+
   getStatusSeverity(status: string): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined {
     switch (status) {
       case 'completed':
@@ -55,7 +68,7 @@ export class EntryRawMaterialsComponent implements OnInit {
       ...order,
       raw_materials: order.raw_materials.map((material: any) => ({
         ...material,
-        selected: this.isSelected(material.id)
+        selected: this.isSelected(material)
       }))
     }));
   }
@@ -83,7 +96,7 @@ export class EntryRawMaterialsComponent implements OnInit {
 
     const invalidOrders = this.materialOrders.filter(order => {
       const selectedMaterials = order.raw_materials.filter(
-        (material: any) => this.selectedMaterials.has(material.id)
+        (material: any) => this.selectedMaterials.has(material.raw_material.id)  // Changed from material.id
       );
       return selectedMaterials.some((material: any) => material.delivery_status === 'delivered');
     });
@@ -116,12 +129,18 @@ export class EntryRawMaterialsComponent implements OnInit {
     
     this.materialOrders.forEach(order => {
       const selectedMaterialIds = order.raw_materials
-        .filter((material: any) => this.selectedMaterials.has(material.id))
-        .map((material: any) => material.id);
+        .filter((material: any) => {
+          console.log('Checking material:', material);
+          return this.selectedMaterials.has(material.raw_material.id);
+        })
+        .map((material: any) => ({
+          raw_material_id: material.raw_material.id,
+          material_order_id: material.id
+        }));
       
       if (selectedMaterialIds.length > 0) {
         console.log(`Order ${order.id} selected materials:`, selectedMaterialIds);
-        orderMaterials.set(order.id, selectedMaterialIds);
+        orderMaterials.set(order.id, selectedMaterialIds.map((item: any) => item.raw_material_id));
       }
     });
 

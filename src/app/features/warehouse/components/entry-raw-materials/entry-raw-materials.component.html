@@ -57,9 +57,10 @@
               <ng-template pTemplate="body" let-material>
                 <tr>
                   <td>
-                    <p-checkbox [(ngModel)]="material.selected" 
-                                [binary]="true"
-                                (onChange)="toggleSelection(material.id)">
+                    <p-checkbox 
+                        [ngModel]="isSelected(material)"
+                        (onChange)="toggleSelection(material)"
+                        [binary]="true">
                     </p-checkbox>
                   </td>
                   <td>{{material.raw_material.name}}</td>
