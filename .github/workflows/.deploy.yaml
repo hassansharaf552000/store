@@ -14,6 +14,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Angular Project
+        run: npm run build --prod
+
       - name: Setup SSH
         env:
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
@@ -24,21 +35,17 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $VPS_IP >> ~/.ssh/known_hosts
 
-      - name: Test SSH Connection
-        env:
-          VPS_USER: ${{ vars.VPS_USER }}
-          VPS_IP: ${{ vars.VPS_IP }}
-        run: |
-          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP "docker ps"
-
       - name: Deploy to VPS
         env:
           VPS_USER: ${{ vars.VPS_USER }}
           VPS_IP: ${{ vars.VPS_IP }}
         run: |
-          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP << 'EOF'
-          cd /streetwear-app/frontend
-          git pull origin dev
-          docker build -t angular-app .
-          EOF
+          # Create backup of existing deployment
+          ssh $VPS_USER@$VPS_IP "cd /var/www && [ -d angular ] && mv angular angular_backup || true"
+          
+          # Copy new build to server
+          scp -r dist/* $VPS_USER@$VPS_IP:/var/www/angular/
+          
+          # Remove backup if copy was successful
+          ssh $VPS_USER@$VPS_IP "rm -rf /var/www/angular_backup"
 
