@@ -53,8 +53,4 @@ jobs:
           scp -r dist/* $VPS_USER@$VPS_IP:/var/www/angular/
           
           # Set proper permissions and cleanup
-          ssh $VPS_USER@$VPS_IP "sudo chown -R www-data:www-data /var/www/angular && sudo rm -rf /var/www/angular_backup"
-          
-          # restart nginx container
-          ssh $VPS_USER@$VPS_IP "sudo docker restart streetwear-nginx-1"
-
+          ssh $VPS_USER@$VPS_IP "sudo chown -R www-data:www-data /var/www/angular && sudo rm -rf /var/www/angular_backup && docker restart streetwear-nginx-1"
