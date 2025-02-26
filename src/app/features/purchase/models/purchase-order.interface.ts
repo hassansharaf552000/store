@@ -26,22 +26,30 @@ export interface PurchaseOrderItem {
   id: number;
   raw_material: RawMaterial;
   unit: number;
-  quantity: string;
-  unit_price: string;
+  quantity: number;
+  unit_price: number;
   is_delivered: boolean;
   delivery_status: string;
   delivery_status_display: string;
+  material_id: number;
+  material_name: string;
+  unit_id: number;
 }
+
+export type PurchaseOrderStatus = 'pending' | 'approved' | 'rejected';
 
 export interface PurchaseOrder {
   id: number;
   purchase_number: string;
   purpose: string;
-  status: 'pending' | 'approved' | 'rejected ';
+  status: PurchaseOrderStatus;
+  status_display: string;
   supplier: Supplier;
-  created_by: UserMinimal;
+  created_by: string;
+  created_at: string;
   delivery_date?: string;
-  total_cost?: string;
+  total_cost: number;
+  raw_materials: PurchaseOrderItem[];
 }
 
 export interface PurchaseResponse {

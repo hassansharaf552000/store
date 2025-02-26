@@ -10,8 +10,7 @@
   <div class="details-grid">
     <div class="detail-item">
       <label>حالة الطلب</label>
-      <p-tag [severity]="purchase.status === 'accepted' ? 'success' : 
-                        purchase.status === 'declined' ? 'danger' : 'warn'"
+      <p-tag [severity]="getStatusSeverity(purchase.status)"
              [value]="purchase.status_display">
       </p-tag>
     </div>
@@ -28,12 +27,12 @@
 
     <div class="detail-item">
       <label>التكلفة الإجمالية</label>
-      <p>{{purchase.total_cost | arabicCurrency}}</p>
+      <p>{{purchase.total_cost.toString() | arabicCurrency}}</p>
     </div>
 
     <div class="detail-item">
       <label>منشئ الطلب</label>
-      <p>{{purchase.created_by.username}}</p>
+      <p>{{purchase.created_by}}</p>
     </div>
 
     <div class="detail-item">
@@ -44,7 +43,7 @@
 
   <div class="materials-section">
     <h3>المواد المطلوبة</h3>
-    <p-table [value]="purchase.raw_materials" styleClass="p-datatable-sm materials-table">
+    <p-table [value]="purchase.raw_materials" styleClass="p-datatable-sm">
       <ng-template pTemplate="header">
         <tr class="text-light">
           <th>المادة</th>
@@ -63,7 +62,7 @@
           <td class="price">{{item.unit_price | arabicCurrency}}</td>
           <td class="total-price">{{calculateItemTotal(item) | arabicCurrency}}</td>
           <td>
-            <p-tag [severity]="getDeliveryStatusSeverity(item.delivery_status)"
+            <p-tag [severity]="getStatusSeverity(item.delivery_status)"
                    [value]="item.delivery_status_display">
             </p-tag>
           </td>

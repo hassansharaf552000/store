@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { PurchaseService } from '../../services/purchase.service';
-import { PurchaseOrder } from '../../models/purchase-order.interface';
+import { PurchaseOrder, PurchaseOrderStatus } from '../../models/purchase-order.interface';
 import { MaterialUnit, MaterialUnitLabels } from '../../../warehouse/models/raw-material.model';
 
 @Component({
@@ -79,19 +79,18 @@ export class PurchaseDetailsComponent implements OnInit {
     return Number(item?.quantity) * Number(item?.unit_price);
   }
 
-  getDeliveryStatusSeverity(status: string): 'success' | 'warn' | 'danger' | 'info' | undefined {
+  getStatusSeverity(status: string): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined {
     switch (status) {
-      case 'delivered':
+      case 'approved':
         return 'success';
+      case 'rejected':
+        return 'danger';
       case 'pending':
         return 'warn';
-      case 'cancelled':
-        return 'danger';
       default:
-        return 'info';
+        return 'secondary';
     }
   }
-
   goBack() {
     this.router.navigate(['/main/purchase']);
   }
