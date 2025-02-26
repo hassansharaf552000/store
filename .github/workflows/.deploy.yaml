@@ -32,6 +32,9 @@ jobs:
           ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP "docker ps"
 
       - name: Deploy to VPS
+        env:
+          VPS_USER: ${{ vars.VPS_USER }}
+          VPS_IP: ${{ vars.VPS_IP }}
         run: |
           ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP << 'EOF'
           cd /home/root/frontend
