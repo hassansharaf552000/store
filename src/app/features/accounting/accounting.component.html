@@ -1,1 +1,66 @@
-<p>accounting works!</p>
+<div class="invoices-container" dir="rtl">
+    <div class="header">
+        <h1>الفواتير</h1>
+    </div>
+
+    <p-toast></p-toast>
+
+    <div class="card">
+        <p-table 
+            [value]="invoices" 
+            [loading]="loading"
+            styleClass="p-datatable-sm" 
+            [paginator]="true" 
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            responsiveLayout="scroll"
+            currentPageReportTemplate="عرض {first} إلى {last} من أصل {totalRecords} فاتورة">
+            
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>رقم الفاتورة</th>
+                    <th>رقم أمر الشراء</th>
+                    <th>المورد</th>
+                    <th>المبلغ الإجمالي</th>
+                    <th>حالة الطلب</th>
+                    <th>تاريخ الفاتورة</th>
+                    <th>إجراء</th>
+                </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-invoice>
+                <tr>
+                    <td>{{invoice.invoice_number}}</td>
+                    <td>{{invoice.purchase.purchase_number}}</td>
+                    <td>{{invoice.purchase.supplier.name}}</td>
+                    <td>{{invoice.total_amount}} جنيه</td>
+                    <td>
+                        <span class="status-badge" [ngClass]="getStatusClass(invoice.purchase.status)">
+                            {{invoice.purchase.status_display}}
+                        </span>
+                    </td>
+                    <td>{{invoice.invoice_date | date:'mediumDate'}}</td>
+                    <td>
+                        <div class="actions">
+                            <button pButton 
+                                    pTooltip="عرض التفاصيل" 
+                                    icon="pi pi-eye" 
+                                    class="p-button-rounded p-button-text p-button-info"
+                                    (click)="viewInvoiceDetails(invoice)"></button>
+                            <button pButton 
+                                    pTooltip="طباعة الفاتورة" 
+                                    icon="pi pi-print" 
+                                    class="p-button-rounded p-button-text"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7" class="text-center">لا توجد فواتير</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
