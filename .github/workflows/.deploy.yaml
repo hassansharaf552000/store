@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Install Dependencies
         run: npm install
@@ -41,16 +41,16 @@ jobs:
           VPS_IP: ${{ vars.VPS_IP }}
         run: |
           # Ensure directory exists and set permissions
-          ssh $VPS_USER@$VPS_IP "sudo mkdir -p /var/www/angular && sudo chown -R $VPS_USER:$VPS_USER /var/www/angular"
+          ssh $VPS_USER@$VPS_IP " mkdir -p /var/www/angular "
           
           # Create backup if exists
-          ssh $VPS_USER@$VPS_IP "if [ -d /var/www/angular ]; then sudo mv /var/www/angular /var/www/angular_backup; fi"
+          ssh $VPS_USER@$VPS_IP "if [ -d /var/www/angular ]; then  mv /var/www/angular /var/www/angular_backup; fi"
           
           # Create fresh directory
-          ssh $VPS_USER@$VPS_IP "sudo mkdir -p /var/www/angular && sudo chown -R $VPS_USER:$VPS_USER /var/www/angular"
+          ssh $VPS_USER@$VPS_IP " mkdir -p /var/www/angular "
           
           # Copy new build to server
           scp -r dist/* $VPS_USER@$VPS_IP:/var/www/angular/
           
           # Set proper permissions and cleanup
-          ssh $VPS_USER@$VPS_IP "sudo chown -R www-data:www-data /var/www/angular && sudo rm -rf /var/www/angular_backup && docker restart streetwear-nginx-1"
+          ssh $VPS_USER@$VPS_IP " rm -rf /var/www/angular_backup && docker restart streetwear-nginx-1"
