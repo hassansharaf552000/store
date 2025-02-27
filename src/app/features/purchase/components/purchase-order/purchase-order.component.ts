@@ -5,6 +5,8 @@ import { PurchaseService } from '../../services/purchase.service';
 import { Router } from '@angular/router';
 import { UnitService } from '../../../../shared/services/unit.service';
 import { SupplierService } from '../../../../shared/services/supplier.service';
+import { InventoryService } from '../../../warehouse/services/inventory.service';
+import { PurchaseOrder, CreatePurchaseOrderRequest } from '../../models/purchase-order.interface';
 
 @Component({
   selector: 'app-purchase-order',
@@ -17,6 +19,7 @@ export class PurchaseOrderComponent implements OnInit {
   suppliers: any[] = [];
   itemsList: any[] = [];
   units: any[] = [];
+  rawMaterials: any[] = [];  // Add this property
   loading = false;
 
   constructor(
@@ -25,10 +28,11 @@ export class PurchaseOrderComponent implements OnInit {
     private purchaseService: PurchaseService,
     private router: Router,
     private supplierService: SupplierService,
-    private unitService: UnitService
+    private unitService: UnitService,
+    private inventoryService: InventoryService  // Add this service
   ) {
     this.purchaseOrderForm = this.fb.group({
-      supplier: [null, Validators.required],
+      supplier: ["", Validators.required],
       orderDate: [new Date(), Validators.required],
       items: this.fb.array([]),
     });
@@ -40,6 +44,7 @@ export class PurchaseOrderComponent implements OnInit {
   ngOnInit() {
     this.loadSuppliers();
     this.loadUnits();
+    this.loadRawMaterials();  // Add this call
   }
 
   loadSuppliers() {
@@ -84,14 +89,37 @@ export class PurchaseOrderComponent implements OnInit {
     });
   }
 
+  // Add this new method
+  loadRawMaterials() {
+    this.loading = true;
+    this.inventoryService.getAllMaterials().subscribe({
+      next: (response) => {
+        this.rawMaterials = response.results.map((material: any) => ({
+          label: material.name,
+          value: material.id
+        }));
+        this.loading = false;
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'خطأ',
+          detail: 'فشل في تحميل المواد الخام'
+        });
+        this.loading = false;
+      }
+    });
+  }
+
   get items(): FormArray {
     return this.purchaseOrderForm.get('items') as FormArray;
   }
 
+  // Modify the addItem method to use rawMaterials dropdown
   addItem() {
     this.items.push(
       this.fb.group({
-        itemName: [null, Validators.required],
+        itemName: ["", Validators.required],  // This will now be a dropdown of raw materials
         unit: ["", Validators.required],
         quantity: [1, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]*$')]],
         unitPrice: [null, [Validators.required, Validators.min(0.1), Validators.pattern('^[0-9]*\.?[0-9]+$')]]
@@ -132,10 +160,59 @@ export class PurchaseOrderComponent implements OnInit {
 
   onSubmit() {
     if (this.purchaseOrderForm.valid) {
-      console.log('تم تقديم أمر الشراء:', this.purchaseOrderForm.value);
-      this.messageService.add({ severity: 'success', summary: 'نجاح', detail: 'تم تقديم أمر الشراء' });
+      this.loading = true;
+      
+      // Transform form data to match API requirements
+      const formValue = this.purchaseOrderForm.value;
+      const purchaseOrder: CreatePurchaseOrderRequest = {
+        supplier_id: formValue.supplier,
+        raw_materials: formValue.items.map((item: any) => ({
+          raw_material_id: parseInt(item.itemName),
+          quantity: parseInt(item.quantity),
+          unit_price: parseFloat(item.unitPrice)
+        }))
+      };
+
+      this.purchaseService.createOrder(purchaseOrder).subscribe({
+        next: (response) => {
+          this.messageService.add({ 
+            severity: 'success', 
+            summary: 'نجاح', 
+            detail: 'تم إنشاء أمر الشراء بنجاح' 
+          });
+          this.loading = false;
+          this.router.navigate(['/main/purchase']); // Navigate back to purchase list
+        },
+        error: (error) => {
+          console.error('Error creating purchase order:', error);
+          this.messageService.add({ 
+            severity: 'error', 
+            summary: 'خطأ', 
+            detail: 'حدث خطأ أثناء إنشاء أمر الشراء' 
+          });
+          this.loading = false;
+        }
+      });
     } else {
-      this.messageService.add({ severity: 'error', summary: 'خطأ', detail: 'يرجى ملء جميع الحقول المطلوبة' });
+      // Show validation errors
+      this.messageService.add({ 
+        severity: 'error', 
+        summary: 'خطأ', 
+        detail: 'يرجى ملء جميع الحقول المطلوبة' 
+      });
+      
+      // Mark all fields as touched to trigger validation messages
+      Object.keys(this.purchaseOrderForm.controls).forEach(key => {
+        const control = this.purchaseOrderForm.get(key);
+        control?.markAsTouched();
+      });
+      
+      // Mark all item fields as touched
+      this.items.controls.forEach(control => {
+        Object.keys((control as FormGroup).controls).forEach(key => {
+          control.get(key)?.markAsTouched();
+        });
+      });
     }
   }
 

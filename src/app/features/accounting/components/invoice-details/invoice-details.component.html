@@ -1,0 +1,141 @@
+<div class="invoice-details" dir="rtl">
+    <!-- Screen-only buttons -->
+    <div class="header-actions screen-only mb-3">
+        <button pButton icon="pi pi-arrow-right" label="رجوع" 
+                class="p-button-text" (click)="goBack()"></button>
+        <button pButton icon="pi pi-print" label="طباعة" 
+                class="p-button-secondary" (click)="printInvoice()"></button>
+    </div>
+
+    <!-- Document Content -->
+    <div class="content" *ngIf="invoice">
+        <div class="header">
+            <h1>فاتورة شراء</h1>
+            <h2 class="invoice-number">{{invoice.invoice_number}}</h2>
+        </div>
+
+        <div class="invoice-header">
+            <div class="section-grid">
+                <div class="info-group">
+                    <h3>معلومات الفاتورة</h3>
+                    <div class="info-row">
+                        <p><strong>رقم الفاتورة:</strong> {{invoice.invoice_number}}</p>
+                        <p><strong>تاريخ الفاتورة:</strong> {{invoice.invoice_date | date:'yyyy/MM/dd'}}</p>
+                        <p><strong>تاريخ الإنشاء:</strong> {{invoice.created_at | date:'yyyy/MM/dd HH:mm'}}</p>
+                        <p><strong>المبلغ الإجمالي:</strong> {{invoice.total_amount}} جنيه</p>
+                    </div>
+                </div>
+                <div class="info-group">
+                    <h3>معلومات أمر الشراء</h3>
+                    <div class="info-row">
+                        <p><strong>رقم أمر الشراء:</strong> {{invoice.purchase.purchase_number}}</p>
+                        <p><strong>الغرض:</strong> {{invoice.purchase.purpose || 'غير محدد'}}</p>
+                        <p><strong>حالة الطلب:</strong> 
+                            <span class="status-badge" [ngClass]="getStatusClass(invoice.purchase.status)">
+                                {{invoice.purchase.status_display}}
+                            </span>
+                        </p>
+                        <p><strong>التكلفة الإجمالية:</strong> {{invoice.purchase.total_cost}} جنيه</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-grid">
+                <div class="info-group">
+                    <h3>معلومات المورد</h3>
+                    <div class="info-row">
+                        <p><strong>اسم المورد:</strong> {{invoice.purchase.supplier.name}}</p>
+                        <p><strong>البريد الإلكتروني:</strong> {{invoice.purchase.supplier.email || 'غير متوفر'}}</p>
+                        <p><strong>رقم الهاتف:</strong> {{invoice.purchase.supplier.phone || 'غير متوفر'}}</p>
+                        <p><strong>العنوان:</strong> {{invoice.purchase.supplier.address || 'غير متوفر'}}</p>
+                    </div>
+                </div>
+                <div class="info-group">
+                    <h3>معلومات المنشئ</h3>
+                    <div class="info-row">
+                        <p><strong>اسم المستخدم:</strong> {{invoice.purchase.created_by.username}}</p>
+                        <p><strong>البريد الإلكتروني:</strong> {{invoice.purchase.created_by.email}}</p>
+                        <p><strong>الاسم:</strong> {{getFullName(invoice.purchase.created_by)}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="items-section">
+            <h3>المواد الخام المطلوبة</h3>
+            <p-table [value]="invoice.purchase.raw_materials" styleClass="p-datatable-sm">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>#</th>
+                        <th>المادة الخام</th>
+                        <th>الكمية</th>
+                        <th>سعر الوحدة</th>
+                        <th>حالة التسليم</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr>
+                        <td>{{i + 1}}</td>
+                        <td>{{item.raw_material.name}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.unit_price}} جنيه</td>
+                        <td>
+                            <span class="delivery-status" [class.delivered]="item.is_delivered">
+                                {{item.delivery_status_display}}
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="invoice-items">
+            <h3>تفاصيل الفاتورة</h3>
+            <p-table [value]="invoice.items" styleClass="p-datatable-sm">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>#</th>
+                        <th>المادة الخام</th>
+                        <th>الكمية</th>
+                        <th class="price-column">سعر الوحدة</th>
+                        <th class="total-column">المجموع</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr>
+                        <td>{{i + 1}}</td>
+                        <td>{{getRawMaterialName(item.raw_material)}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td class="price-column">{{item.unit_price}} جنيه</td>
+                        <td class="total-column">{{item.subtotal}} جنيه</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="4" class="text-left"><strong>الإجمالي</strong></td>
+                        <td class="grand-total">{{invoice.total_amount}} جنيه</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Signature Section - Only visible in print -->
+        <div class="signature-section print-only">
+            <div class="signature-box">
+                <p>توقيع المورد</p>
+                <div class="signature-line"></div>
+            </div>
+            <div class="signature-box">
+                <p>توقيع المستلم</p>
+                <div class="signature-line"></div>
+            </div>
+        </div>
+
+        <div class="additional-info" *ngIf="invoice.notes">
+            <h3>ملاحظات</h3>
+            <p>{{invoice.notes}}</p>
+        </div>
+    </div>
+
+    <p-progressSpinner *ngIf="loading"></p-progressSpinner>
+</div>

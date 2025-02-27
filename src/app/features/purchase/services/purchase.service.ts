@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PurchaseOrder, PurchaseResponse } from '../models/purchase-order.interface';
+import { PurchaseOrder, PurchaseResponse, CreatePurchaseOrderRequest } from '../models/purchase-order.interface';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class PurchaseService {
     return this.http.get<PurchaseOrder>(`${this.apiUrl}/${id}`);
   }
 
-  createOrder(order: Partial<PurchaseOrder>): Observable<PurchaseOrder> {
+  createOrder(order: CreatePurchaseOrderRequest): Observable<PurchaseOrder> {
     return this.http.post<PurchaseOrder>(this.apiUrl, order);
   }
 

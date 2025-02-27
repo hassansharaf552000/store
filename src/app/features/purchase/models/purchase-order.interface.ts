@@ -64,3 +64,14 @@ export interface PurchaseResponse {
   previous: string | null;
   results: PurchaseOrder[];
 }
+
+export interface CreatePurchaseOrderRequest {
+  supplier_id: number;
+  raw_materials: CreatePurchaseOrderMaterial[];
+}
+
+export interface CreatePurchaseOrderMaterial {
+  raw_material_id: number;
+  quantity: number;
+  unit_price: number;
+}

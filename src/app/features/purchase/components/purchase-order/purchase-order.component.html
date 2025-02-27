@@ -7,20 +7,20 @@
   
       <div class="p-field">
         <label for="supplier">المورد</label>
-        <p-dropdown id="supplier" 
-                    [options]="suppliers" 
-                    formControlName="supplier" 
-                    placeholder="اختر المورد"
-                    [filter]="true"
-                    filterBy="label"
-                    [loading]="loading"
-                    ></p-dropdown>
+        <select id="supplier" 
+                formControlName="supplier" 
+                class="standard-select">
+            <option value="" selected disabled>اختر المورد</option>
+            <option *ngFor="let supplier of suppliers" [value]="supplier.value">
+                {{supplier.label}}
+            </option>
+        </select>
         <small *ngIf="purchaseOrderForm.get('supplier')?.invalid && purchaseOrderForm.get('supplier')?.touched" class="p-error">
-          المورد مطلوب
+            المورد مطلوب
         </small>
       </div>
   
-      <div class="p-field p-mb-3">
+      <!-- <div class="p-field p-mb-3">
         <label for="orderDate" class="p-d-block">تاريخ الطلب</label>
         <p-calendar id="orderDate" 
                    formControlName="orderDate" 
@@ -32,7 +32,7 @@
         <small *ngIf="purchaseOrderForm.get('orderDate')?.invalid && purchaseOrderForm.get('orderDate')?.touched" class="p-error">
           تاريخ الطلب مطلوب
         </small>
-      </div>
+      </div> -->
   
       <h3>العناصر</h3>
       <p-table [value]="items.controls">
@@ -49,7 +49,14 @@
         <ng-template let-item let-i="rowIndex" pTemplate="body">
           <tr [formGroup]="item">
             <td style="min-width: 200px;">
-              <input pInputText type="text" formControlName="itemName" placeholder="أدخل اسم العنصر"/>
+              <select formControlName="itemName" 
+                      class="standard-select"
+                      [attr.disabled]="loading ? '' : null">
+                <option value="" selected disabled>اختر المادة الخام</option>
+                <option *ngFor="let material of rawMaterials" [value]="material.value">
+                  {{material.label}}
+                </option>
+              </select>
               <small class="p-error" *ngIf="item.get('itemName')?.invalid && item.get('itemName')?.touched">
                 مطلوب
               </small>

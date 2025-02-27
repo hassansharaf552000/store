@@ -1,0 +1,165 @@
+.invoices-container {
+  padding: 2rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h1 {
+      color: var(--primary-color);
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+  }
+
+  .card {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  ::ng-deep {
+    .p-datatable {
+      .p-datatable-header {
+        background: #f8f9fa;
+        border: none;
+      }
+
+      .p-datatable-thead > tr > th {
+        background: #ffffff;
+        color: #495057;
+        padding: 1rem;
+        text-align: center;
+        font-weight: 600;
+        border: none;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .p-datatable-tbody > tr {
+        background: #f8f9fa;
+        
+        td {
+          padding: 1rem;
+          text-align: center;
+          border: none;
+          border-bottom: 1px solid #f2f2f2;
+          color: #495057;
+        }
+
+        &:hover {
+          background: var(--secondary-color); // Changed from #ffffff to a darker gray
+          box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+          transition: all 0.2s ease;
+          td {
+            color: #ffffff;
+          }
+          .actions button {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(even) {
+          background: #f1f3f5;
+          
+          &:hover {
+            background: var(--secondary-color); // Changed from #ffffff to match the new hover color
+            td {
+                color: #ffffff;
+            }
+            .actions button {
+              color: #ffffff;
+            }
+          }
+        }
+      }
+
+      .p-paginator {
+        background: #f8f9fa;
+        border: none;
+        padding: 1rem;
+        
+        .p-paginator-element {
+          background: #ffffff;
+          color: #495057;
+          border: 1px solid #dee2e6;
+          border-radius: 4px;
+          
+          &:hover {
+            background: #e9ecef;
+          }
+          
+          &.p-highlight {
+            background: #ffffff;
+            border-color: #dee2e6;
+          }
+        }
+      }
+    }
+  }
+
+  .status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .status-paid {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  .status-pending {
+    background-color: #fff3e0;
+    color: #e65100;
+  }
+
+  .status-overdue {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem; // Added gap between buttons
+    
+    button {
+      width: 2.2rem;
+      height: 2.2rem;
+      color: #495057;
+
+      &:hover {
+        background: var(--primary-color);
+        color: #ffffff;
+      }
+
+      .pi {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  // RTL specific styles
+  :host ::ng-deep {
+    .p-datatable {
+      .p-datatable-thead > tr > th {
+        text-align: right;
+      }
+
+      .p-datatable-tbody > tr > td {
+        text-align: right;
+      }
+
+      .p-paginator {
+        direction: rtl;
+      }
+    }
+  }
+}
