@@ -6,25 +6,19 @@
         </a>
     </div>
     <div class="sidebar-wrapper">
-        <!-- Mobile Search -->
-        <div *ngIf="isMobileMenu()" class="mobile-search">
-            <form class="search-form">
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input type="text" pInputText placeholder="بحث..."/>
-                </span>
-            </form>
-        </div>
 
         <!-- Navigation Menu -->
-        <ul class="nav">
+        <ul class="nav" *ngIf="loggedInUser">
             <li routerLinkActive="active" 
                 *ngFor="let menuItem of menuItems" 
                 class="nav-item">
-                <a class="nav-link" [routerLink]="[menuItem.path]">
-                    <span>{{menuItem.titleAr || menuItem.title}}</span>
-                    <i class="pi" [ngClass]="'pi-' + convertIcon(menuItem.icon)"></i>
-                </a>
+                <ng-container *ngIf="hasPermission(menuItem?.permissions)">
+                    <a class="nav-link" [routerLink]="[menuItem.path]">
+                        <span>{{menuItem.titleAr || menuItem.title}}</span>
+                        <i class="pi" [ngClass]="'pi-' + convertIcon(menuItem.icon)"></i>
+                    </a>
+                </ng-container>
+
             </li>
         </ul>
 

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
+import { User, UserType } from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,12 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
+  routeTo : {[key: string]: string} = {
+    [UserType.accountant]: '/main/accounting',
+    [UserType.warehouse]: '/main/warehouse',
+    [UserType.production_manager]: '/main/production',
+    [UserType.purchase_manager]: '/main/purchase'
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -51,7 +58,12 @@ export class LoginComponent implements OnInit {
           // localStorage.setItem('token', response.token);
           // localStorage.setItem('user', JSON.stringify(response.user));
           this.loading = false;
-          this.router.navigate(['/main']);
+          const localStorageUser = localStorage.getItem('user') || '{}';
+          const loggedInUser = localStorageUser !== '{}' ? JSON.parse(localStorageUser) : null;
+          if (loggedInUser) {
+            this.router.navigate([this.routeTo[loggedInUser.type]]);
+          }
+
         },
         error: (error) => {
           this.messageService.add({

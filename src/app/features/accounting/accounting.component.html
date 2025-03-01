@@ -24,12 +24,12 @@
                     <th>المبلغ الإجمالي</th>
                     <th>حالة الطلب</th>
                     <th>تاريخ الفاتورة</th>
-                    <th>إجراء</th>
+                    <th>طباعة</th>
                 </tr>
             </ng-template>
             
             <ng-template pTemplate="body" let-invoice>
-                <tr>
+                <tr (click)="onRowClick($event, invoice)" class="invoice-row">
                     <td>{{invoice.invoice_number}}</td>
                     <td>{{invoice.purchase.purchase_number}}</td>
                     <td>{{invoice.purchase.supplier.name}}</td>
@@ -42,15 +42,16 @@
                     <td>{{invoice.invoice_date | date:'mediumDate'}}</td>
                     <td>
                         <div class="actions">
-                            <button pButton 
+                            <!-- <button pButton 
                                     pTooltip="عرض التفاصيل" 
                                     icon="pi pi-eye" 
                                     class="p-button-rounded p-button-text p-button-info"
-                                    (click)="viewInvoiceDetails(invoice)"></button>
+                                    (click)="viewInvoiceDetails(invoice)"></button> -->
                             <button pButton 
                                     pTooltip="طباعة الفاتورة" 
                                     icon="pi pi-print" 
-                                    class="p-button-rounded p-button-text"></button>
+                                    class="p-button-rounded p-button-text p-button-print"
+                                    (click)="printInvoice(invoice, $event)"></button>
                         </div>
                     </td>
                 </tr>
