@@ -1,7 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,28 @@ export class NavbarComponent implements OnInit {
     mobile_menu_visible: number = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
+    localStorageUser: string = localStorage.getItem('user') || '{}';
+    loggedInUser!: User | null;
+
+    private userTypeArabicMap: { [key: string]: string } = {
+        'accountant': 'محاسب',
+        'warehouse': 'مسؤول المستودع',
+        'production_manager': 'مدير الإنتاج',
+        'purchase_manager': 'مدير المشتريات'
+    };
+
+    getRoleIcon(): string {
+        if (!this.loggedInUser) return 'pi-user';
+        
+        const iconMap: { [key: string]: string } = {
+            'accountant': 'pi-wallet',
+            'warehouse': 'pi-box',
+            'production_manager': 'pi-cog',
+            'purchase_manager': 'pi-shopping-cart'
+        };
+        
+        return iconMap[this.loggedInUser.type] || 'pi-user';
+    }
 
     constructor(location: Location,  private element: ElementRef, private router: Router) {
       this.location = location;
@@ -22,6 +45,7 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(){
+        this.loggedInUser = this.localStorageUser != '{}' ? JSON.parse(this.localStorageUser) : null;
       this.listTitles = ROUTES.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
@@ -112,16 +136,17 @@ export class NavbarComponent implements OnInit {
     };
 
     getTitle(){
-      var titlee = this.location.prepareExternalUrl(this.location.path());
-      if(titlee.charAt(0) === '#'){
-          titlee = titlee.slice( 1 );
-      }
+        if (!this.loggedInUser) return 'زائر';
+        const arabicType = this.userTypeArabicMap[this.loggedInUser.type] || this.loggedInUser.type;
+        return `${arabicType}`;
+    }
 
-      for(var item = 0; item < this.listTitles.length; item++){
-          if(this.listTitles[item].path === titlee){
-              return this.listTitles[item].title;
-          }
-      }
-      return 'Dashboard';
+    handleAuthAction() {
+        if (this.loggedInUser) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            this.loggedInUser = null;
+        }
+        this.router.navigate(['/auth/login']);
     }
 }
